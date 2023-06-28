@@ -1,8 +1,15 @@
-# volumes:
+volumes:
+  project-gamma-data:
+    external: true
 services:
   fastapi:
     environment:
       CORS_HOST: http://localhost:3000
+      DATABASE_URL: postgresql://gamma:secret@db/project-gamma-data
+      SIGNING_KEY: gammasecret
+      WAIT_HOSTS: db:5432
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
     build:
       context: api
       dockerfile: Dockerfile.dev
@@ -25,3 +32,14 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+
+  db:
+    image: postgres:15.3-bullseye
+    volumes:
+      - project-gamma-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: gamma
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: project-gamma-data
+    ports:
+      - "15432:5432"
