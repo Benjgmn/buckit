@@ -19,3 +19,4 @@ app.add_middleware(
 app.include_router(accounts.router, tags=['Accounts'])
 app.include_router(authenticator.router, tags=['Accounts'])
 app.include_router(films.router, tags=['Films'])
+#app.include_router(buckets.router, tags=['Buckets'])

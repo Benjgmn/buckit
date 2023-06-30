@@ -2,17 +2,6 @@ from pydantic import BaseModel
 from typing import List
 from jwtdown_fastapi.authentication import Token
 
-class FilmIds(BaseModel):
-    name: str
-    url: str
-
-class FilmsOut(FilmIds):
-    id: int
-    name: str
-    username: str
-
-class FilmList(BaseModel):
-    films: list[FilmIds]
 
 class HttpError(BaseModel):
     detail: str

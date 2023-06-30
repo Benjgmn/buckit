@@ -1,20 +1,19 @@
 from fastapi import APIRouter, Depends
-from models import FilmList, FilmsOut
 from queries.films import FilmQueries
 
 router = APIRouter()
 
-@router.get('/api/films', response_model=FilmList)
-def list_films(
-    queries: FilmQueries = Depends()
-):
-    return {
-        "films": queries.list_films()
-    }
 
-@router.get('/api/films/{name}', response_model=FilmsOut)
-def get_film_by_name(
-    name: str,
-    queries: FilmQueries = Depends()
-):
-    return queries.get_one_by_name(name)
+@router.get("/api/films/rank")
+async def get_highest_rated_(queries: FilmQueries = Depends()):
+    return queries.get_highest_rated_films()
+
+
+@router.get("/api/films/search/{title}", response_model=dict)
+def search_film(title: str, queries: FilmQueries = Depends()):
+    return queries.search_film_by_title(title)
+
+
+@router.get("/api/films/{id}", response_model=dict)
+def get_film_details(id: int, queries: FilmQueries = Depends()):
+    return queries.get_film_details(id)

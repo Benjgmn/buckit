@@ -1,4 +1,4 @@
-from models import AccountIn, AccountOutWithHashedPassword, AccountCreationError
+from models.accounts import AccountIn, AccountOutWithHashedPassword, AccountCreationError
 from queries.pool import pool
 from typing import Optional
 
