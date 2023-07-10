@@ -75,3 +75,27 @@ class BucketsQueries:
                             success=True,
                         )
                         return film_data
+
+    def update_bucket_name(
+        self, bucket_id: str, updated_name: str
+    ) -> Optional[BucketOut]:
+        with pool.connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    """
+                    UPDATE buckets
+                    SET name = %s
+                    WHERE id = %s
+                    RETURNING id, name, account_id;
+                    """,
+                    (updated_name, bucket_id),
+                )
+                result = cursor.fetchone()
+                if result:
+                    return BucketOut(
+                        id=str(result[0]),
+                        name=result[1],
+                        account_id=result[2],
+                    )
+                else:
+                    return None

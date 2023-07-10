@@ -22,7 +22,7 @@ def get_buckets_by_user(
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
 ):
-    return queries.get_buckets_by_user(account_id)
+    return queries.get_buckets_by_user(account_id=account_id)
 
 
 @router.post("/buckets/{bucket_id}/films/{film_id}", response_model=FilmData)
@@ -32,4 +32,16 @@ def add_film_to_bucket(
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
 ):
-    return queries.add_film_to_bucket(bucket_id, film_id)
+    return queries.add_film_to_bucket(bucket_id=bucket_id, film_id=film_id)
+
+
+@router.put("/buckets/{bucket_id}", response_model=BucketOut)
+def update_bucket_name(
+    bucket_id: str,
+    updated_bucket: BucketIn,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    queries: BucketsQueries = Depends(),
+):
+    return queries.update_bucket_name(
+        bucket_id=bucket_id, updated_name=updated_bucket.name
+    )
