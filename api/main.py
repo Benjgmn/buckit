@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import films, accounts
+from routers import films, accounts, buckets
 import os
 from authenticator import authenticator
 
@@ -19,4 +19,4 @@ app.add_middleware(
 app.include_router(accounts.router, tags=['Accounts'])
 app.include_router(authenticator.router, tags=['Accounts'])
 app.include_router(films.router, tags=['Films'])
-#app.include_router(buckets.router, tags=['Buckets'])
+app.include_router(buckets.router, tags=['Buckets'])
