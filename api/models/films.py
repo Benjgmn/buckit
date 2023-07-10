@@ -24,6 +24,12 @@ class FilmIn(BaseModel):
     tmdb_id: int
 
 
+class FilmData(BaseModel):
+    success: bool
+    bucket_id: str
+    film_data: dict
+
+
 class FilmRepository:
     def create(self, film: FilmIn) -> FilmOut:
         with pool.connection() as conn:
@@ -115,7 +121,7 @@ class FilmRepository:
                     FROM films
                     WHERE title ILIKE %s;
                     """,
-                    ['%' + title + '%'],
+                    ["%" + title + "%"],
                 )
                 films = db.fetchall()
                 result = []
@@ -165,8 +171,3 @@ class FilmRepository:
                         )
                     )
                 return result
-
-
-
-
-
