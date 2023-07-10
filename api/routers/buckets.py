@@ -46,10 +46,3 @@ def update_bucket_name(
         bucket_id=bucket_id, updated_name=updated_bucket.name
     )
 
-# @router.delete("/api/buckets/{bucket_id}/remove_film/{film_id}", response_model=dict)
-# def remove_film_from_bucket(
-#     bucket_id: int,
-#     film_id: int,
-#     bucket_repository: BucketRepository = Depends(),
-# ):
-#     return bucket_repository.remove_film_from_bucket(bucket_id, film_id)
