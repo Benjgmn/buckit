@@ -77,6 +77,7 @@ def delete_bucket(
     buckets = queries.delete_bucket(id)
     return buckets
 
+
 @router.get("/buckets/{bucket_id}/films", response_model=Films)
 def list_films_in_buckets(
     bucket_id: str,
