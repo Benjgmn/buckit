@@ -4,6 +4,7 @@ from models.buckets import BucketIn, BucketOut
 from models.films import FilmData, Films, FilmOut
 from queries.pool import pool
 from typing import Optional, List
+from typing import Dict, Any
 
 TMDB_API_KEY = os.environ["TMDB_API_KEY"]
 
@@ -37,7 +38,7 @@ class BucketsQueries:
             with conn.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT films.id, films.title
+                    SELECT films.id, films.title, films.released, films.poster
                     FROM buckets_films
                     INNER JOIN films ON films.id = buckets_films.film_id
                     WHERE bucket_id = %s;
@@ -49,6 +50,8 @@ class BucketsQueries:
                     FilmOut(
                         id=row[0],
                         title=row[1],
+                        released=row[2],
+                        poster=row[3]
                     )
                     for row in rows
                 ]
@@ -68,11 +71,11 @@ class BucketsQueries:
                         # Update films table
                         cursor.execute(
                             """
-                            INSERT INTO films (id, title)
-                            VALUES (%s, %s)
+                            INSERT INTO films (id, title, released, poster)
+                            VALUES (%s, %s, %s, %s)
                             ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title;
                             """,
-                            (film_data["id"], film_data["title"]),
+                            (film_data["id"], film_data["title"], film_data["release_date"], film_data["poster_path"]),
                         )
 
                         # Insert into buckets_films table
@@ -101,7 +104,7 @@ class BucketsQueries:
                     db.execute(
                         """
                             DELETE FROM buckets
-                            WHERE id = %s
+                            WHERE id = %s;
                             """,
                         [bucket_id],
                     )
