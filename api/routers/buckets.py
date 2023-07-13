@@ -50,7 +50,7 @@ def update_bucket_name(
 
 @router.delete("/buckets/{bucket_id}/films/{film_id}", response_model=bool)
 def delete_film_from_bucket(
-    bucket_id: str,
+    bucket_id: int,
     film_id: int,
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
@@ -70,6 +70,7 @@ def delete_bucket(
         raise HTTPException(status_code=401, detail="Not logged in")
     buckets = queries.delete_bucket(id)
     return buckets
+
 
 @router.get("/buckets/{bucket_id}/films", response_model=Films)
 def list_films_in_buckets(
