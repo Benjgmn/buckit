@@ -14,6 +14,5 @@ class BucketIn(BaseModel):
 
 
 class BucketOut(BaseModel):
-    id: Optional [int]
-    name: Optional [str]
-    account_id: Optional [int]
+    id: int
+    name: str

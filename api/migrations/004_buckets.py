@@ -3,8 +3,8 @@ steps = [
         """
         CREATE TABLE buckets (
             id SERIAL PRIMARY KEY,
-            account_id INTEGER NOT NULL REFERENCES accounts(id),
-            name VARCHAR(255) NOT NULL     
+            account_id INTEGER REFERENCES accounts(id),
+            name VARCHAR(255) NOT NULL
         );
         """,
         """
@@ -16,9 +16,7 @@ steps = [
         CREATE TABLE buckets_films (
             id SERIAL PRIMARY KEY,
             film_id INTEGER NOT NULL,
-            bucket_id INTEGER NOT NULL REFERENCES buckets (id)
-
-
+            bucket_id INTEGER REFERENCES buckets(id) ON DELETE CASCADE
         );
         """,
         """
