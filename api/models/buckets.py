@@ -1,7 +1,4 @@
 from pydantic import BaseModel
-from typing import Dict, List, Union, Optional
-from queries.pool import pool
-from fastapi import HTTPException
 
 
 class Error(BaseModel):
@@ -10,9 +7,9 @@ class Error(BaseModel):
 
 class BucketIn(BaseModel):
     name: str
-    account_id: int
 
 
 class BucketOut(BaseModel):
+    account_id: int
     id: int
     name: str

@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, Request, Response, HTTPException, status
-from models.accounts import AccountIn, AccountOut, AccountForm, HttpError, AccountToken
+from models.accounts import AccountIn, AccountForm, HttpError, AccountToken
 from queries.accounts import AccountQueries, DuplicateAccountError
 from authenticator import authenticator
 
 router = APIRouter()
+
 
 @router.post('/api/accounts', response_model=AccountToken | HttpError)
 async def create_account(

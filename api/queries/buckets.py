@@ -4,7 +4,6 @@ from models.buckets import BucketIn, BucketOut
 from models.films import FilmData, Films, FilmOut
 from queries.pool import pool
 from typing import Optional, List
-from typing import Dict, Any
 
 TMDB_API_KEY = os.environ["TMDB_API_KEY"]
 
@@ -68,7 +67,24 @@ class BucketsQueries:
             if "id" in film_data:
                 with pool.connection() as conn:
                     with conn.cursor() as cursor:
-                        # Update films table
+                        cursor.execute(
+                            """
+                            SELECT EXISTS (
+                                SELECT 1 FROM buckets_films
+                                WHERE bucket_id = %s AND film_id = %s
+                            );
+                            """,
+                            (bucket_id, film_data["id"]),
+                        )
+                        film_exists = cursor.fetchone()[0]
+
+                        if film_exists:
+                            return FilmData(
+                                success=False,
+                                bucket_id=bucket_id,
+                                film_data={},
+                                message="Film already exists in the bucket",
+                            )
                         cursor.execute(
                             """
                             INSERT INTO films (id, title, released, poster)
@@ -78,7 +94,6 @@ class BucketsQueries:
                             (film_data["id"], film_data["title"], film_data["release_date"], film_data["poster_path"]),
                         )
 
-                        # Insert into buckets_films table
                         cursor.execute(
                             """
                             INSERT INTO buckets_films (bucket_id, film_id)
@@ -95,11 +110,33 @@ class BucketsQueries:
                         )
                         return film_data
 
+    def delete_film_from_bucket(self, bucket_id: int, film_id: int) -> bool:
+        with pool.connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    """
+                    DELETE FROM buckets_films
+                    WHERE bucket_id = %s AND film_id = %s
+                    AND EXISTS (
+                        SELECT 1 FROM buckets_films
+                        WHERE bucket_id = %s AND film_id = %s
+                        LIMIT 1
+                    )
+                    RETURNING true;
+                    """,
+                    (bucket_id, film_id, bucket_id, film_id),
+                )
+                conn.commit()
+
+                deleted_row = cursor.fetchone()
+                if deleted_row:
+                    return True
+                else:
+                    return False
+
     def delete_bucket(self, bucket_id: int) -> bool:
         try:
-            # connect the database
             with pool.connection() as conn:
-                # get a cursor
                 with conn.cursor() as db:
                     db.execute(
                         """
@@ -114,7 +151,7 @@ class BucketsQueries:
             print(e)
             return False
 
-    def create_bucket(self, bucket: BucketIn) -> Optional[BucketOut]:
+    def create_bucket(self, bucket: BucketIn, account_id) -> Optional[BucketOut]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
@@ -123,13 +160,13 @@ class BucketsQueries:
                     VALUES (%s, %s)
                     RETURNING id;
                     """,
-                    (bucket.name, bucket.account_id),
+                    (bucket.name, account_id),
                 )
                 bucket_id = cursor.fetchone()[0]
                 new_bucket = BucketOut(
                     id=str(bucket_id),
                     name=bucket.name,
-                    account_id=bucket.account_id,
+                    account_id=account_id,
                 )
                 return new_bucket
 

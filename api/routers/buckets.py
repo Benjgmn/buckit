@@ -14,7 +14,8 @@ def create_bucket(
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
 ):
-    return queries.create_bucket(bucket=bucket)
+    print(account_data)
+    return queries.create_bucket(bucket=bucket, account_id=account_data["id"])
 
 
 @router.get("/buckets/{account_id}", response_model=List[BucketOut])
@@ -50,7 +51,7 @@ def update_bucket_name(
 
 @router.delete("/buckets/{bucket_id}/films/{film_id}", response_model=bool)
 def delete_film_from_bucket(
-    bucket_id: str,
+    bucket_id: int,
     film_id: int,
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),

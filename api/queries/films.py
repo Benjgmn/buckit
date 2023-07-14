@@ -3,8 +3,8 @@ import os
 
 TMDB_API_KEY = os.environ["TMDB_API_KEY"]
 
-class FilmQueries:
 
+class FilmQueries:
     def get_highest_rated_films(self):
         try:
             url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={TMDB_API_KEY}"
@@ -19,7 +19,6 @@ class FilmQueries:
 
         return None
 
-    
     def search_film_by_title(self, title: str):
         results = requests.get(
            "https://api.themoviedb.org/3/search/movie?"
@@ -28,17 +27,9 @@ class FilmQueries:
         data = results.json()
         return data
 
-
     def get_film_details(self, id: int):
         result = requests.get(
             f"https://api.themoviedb.org/3/movie/{id}?api_key={TMDB_API_KEY}"
         )
         data = result.json()
         return data
-
-
-
-
-    
-
-
