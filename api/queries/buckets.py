@@ -31,7 +31,6 @@ class BucketsQueries:
                 ]
                 return buckets
 
-
     def list_films_in_buckets(self, bucket_id: str) -> Optional[List[Films]]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
@@ -47,10 +46,7 @@ class BucketsQueries:
                 rows = cursor.fetchall()
                 films_in_buckets = [
                     FilmOut(
-                        id=row[0],
-                        title=row[1],
-                        released=row[2],
-                        poster=row[3]
+                        id=row[0], title=row[1], released=row[2], poster=row[3]
                     )
                     for row in rows
                 ]
@@ -91,7 +87,12 @@ class BucketsQueries:
                             VALUES (%s, %s, %s, %s)
                             ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title;
                             """,
-                            (film_data["id"], film_data["title"], film_data["release_date"], film_data["poster_path"]),
+                            (
+                                film_data["id"],
+                                film_data["title"],
+                                film_data["release_date"],
+                                film_data["poster_path"],
+                            ),
                         )
 
                         cursor.execute(
@@ -193,3 +194,27 @@ class BucketsQueries:
                     )
                 else:
                     return None
+
+    def delete_film_from_bucket(self, bucket_id: int, film_id: int) -> bool:
+        with pool.connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    """
+                    DELETE FROM buckets_films
+                    WHERE bucket_id = %s AND film_id = %s
+                    AND EXISTS (
+                        SELECT 1 FROM buckets_films
+                        WHERE bucket_id = %s AND film_id = %s
+                        LIMIT 1
+                    )
+                    RETURNING true;
+                    """,
+                    (bucket_id, film_id, bucket_id, film_id),
+                )
+                conn.commit()
+
+                deleted_row = cursor.fetchone()
+                if deleted_row:
+                    return True
+                else:
+                    return False
