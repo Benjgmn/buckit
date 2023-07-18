@@ -1,12 +1,13 @@
 import ErrorNotification from './ErrorNotification';
-import { useSearchFilmQuery } from './app/apiSlice';
+import { useGetHighestRatedFilmsQuery } from './app/apiSlice';
 import { useSelector } from 'react-redux';
 import FilmCard from './FilmCard';
 
 
 const FilmList = () => {
     const searchCriteria = useSelector((state) => state.search.value)
-    const { data, error, isLoading } = useSearchFilmQuery();
+    const { data, error, isLoading } = useGetHighestRatedFilmsQuery();
+    console.log(data)
 
     const filteredFilms = () => {
         if (searchCriteria) {
@@ -15,7 +16,7 @@ const FilmList = () => {
             return data;
         }
     }
-    if (isLoading) return <div>Loading...</div>
+        if (isLoading) return <div>Loading...</div>
     return (
         <div className="columns is-centered">
             <div className="column is-narrow">
@@ -26,8 +27,10 @@ const FilmList = () => {
                 </h3>
                 <div className="container">
                     <div className="row mt-3">
-                        {filteredFilms().map(p => <FilmCard key={p.title} name={p.title} />)}
-                    </div>
+                        {filteredFilms().map((film) => (
+                            <FilmCard key={film.id} film={film} />
+                                    ))}
+                </div>
                 </div>
             </div>
         </div>

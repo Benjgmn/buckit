@@ -33,7 +33,7 @@ export const movieApi = createApi({
         }),
         getHighestRatedFilms: builder.query({
             query: () => 'api/films/rank',
-            transformResponse: (response) => response.films
+            transformResponse: (response) => response,
         }),
         searchFilm: builder.query({
             query: (title) => `/api/films/search/${title}`

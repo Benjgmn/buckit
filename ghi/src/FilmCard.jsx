@@ -1,25 +1,24 @@
 import { Link } from "react-router-dom";
 
-const FilmCard = ({ title, url }) => {
+const FilmCard = ({ film }) => {
+  const { id, title, poster_path } = film;
+
   return (
-    <>
-      <div className="col-3">
-        <div className="card mb-3">
-          <img src={url} className="card-img-top" alt="" />
-          <div className="card-body">
-            <h5 className="card-title">{title}</h5>
-            <p className="card-text">Summary</p>
-            <Link
-              to={`/api/films/search/${title}`}
-              className="btn btn-primary">
-              Get Details
-            </Link>
-          </div>
+    <div className="col-md-4 col-sm-6 mb-4">
+      <div className="card">
+        <Link to={`/films/${id}`}>
+          <img
+            src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+            alt={title}
+            className="card-img-top"
+          />
+        </Link>
+        <div className="card-body">
+          <h5 className="card-title">{title}</h5>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 export default FilmCard;
-
