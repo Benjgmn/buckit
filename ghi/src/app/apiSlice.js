@@ -11,7 +11,7 @@ export const movieApi = createApi({
         url: "/buckets",
         credentials: "include",
       }),
-      transformResponse: (response) => response.buckets,
+      transformResponse: (response) => response,
       providesTags: ["Buckets"],
     }),
     createBucket: builder.mutation({
@@ -86,6 +86,7 @@ export const movieApi = createApi({
 
 export const {
     useSignupMutation,
+    useGetBucketsQuery,
     useCreateBucketMutation,
     useDeleteBucketMutation,
     useLoginMutation,

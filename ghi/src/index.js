@@ -13,6 +13,7 @@ import { store } from './app/store';
 
 import reportWebVitals from './reportWebVitals';
 import SignupForm from './signup';
+import BucketList from './Buckets';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignupForm />
+      },
+      {
+        path: '/buckets',
+        element: <BucketList/>
       }
     ]
   }
