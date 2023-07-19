@@ -1,13 +1,13 @@
-import Search from "./Search";
 import FilmList from "./FilmList";
+import FilmSearch from "./FilmSearch";
 
 const Home = () => {
-    return (
-        <>
-            <Search />
-            <FilmList />
-        </>
-    )
-}
+  return (
+    <>
+      <FilmSearch />
+      <FilmList />
+    </>
+  );
+};
 
 export default Home;

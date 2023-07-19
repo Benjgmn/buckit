@@ -31,7 +31,7 @@ class BucketsQueries:
                 ]
                 return buckets
 
-    def list_films_in_buckets(self, bucket_id: str) -> Optional[List[Films]]:
+    def list_films_in_buckets(self, bucket_id: str, account_id: int) -> Optional[List[Films]]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
@@ -39,9 +39,10 @@ class BucketsQueries:
                     SELECT films.id, films.title, films.released, films.poster
                     FROM buckets_films
                     INNER JOIN films ON films.id = buckets_films.film_id
-                    WHERE bucket_id = %s;
+                    INNER JOIN buckets ON buckets.id = buckets_films.bucket_id
+                    WHERE buckets.id = %s AND buckets.account_id = %s;
                     """,
-                    (bucket_id,),
+                    (bucket_id, account_id,),
                 )
                 rows = cursor.fetchall()
                 films_in_buckets = [
@@ -53,7 +54,7 @@ class BucketsQueries:
                 return Films(films=films_in_buckets)
 
     def add_film_to_bucket(
-        self, bucket_id: str, film_id: int
+        self, bucket_id: str, film_id: int, account_id: int
     ) -> Optional[FilmData]:
         url = f"https://api.themoviedb.org/3/movie/{film_id}?api_key={TMDB_API_KEY}"
         response = requests.get(url)
@@ -102,30 +103,40 @@ class BucketsQueries:
                             """,
                             (bucket_id, film_data["id"]),
                         )
+
+                        cursor.execute(
+                            """
+                            SELECT account_id
+                            FROM buckets
+                            WHERE id = %s;
+                            """,
+                            (bucket_id,),
+                        )
+                        account_id = cursor.fetchone()[0]
+
                         conn.commit()
 
                         film_data = FilmData(
                             bucket_id=bucket_id,
                             film_data=film_data,
                             success=True,
+                            account_id=account_id,
                         )
                         return film_data
 
-    def delete_film_from_bucket(self, bucket_id: int, film_id: int) -> bool:
+    def delete_film_from_bucket(self, bucket_id: int, film_id: int, account_id: int) -> bool:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
                     """
-                    DELETE FROM buckets_films
-                    WHERE bucket_id = %s AND film_id = %s
-                    AND EXISTS (
-                        SELECT 1 FROM buckets_films
-                        WHERE bucket_id = %s AND film_id = %s
-                        LIMIT 1
+                    DELETE
+                    FROM buckets_films
+                    WHERE bucket_id = %s AND film_id = %s AND bucket_id IN (
+                        SELECT id FROM buckets WHERE account_id = %s
                     )
                     RETURNING true;
                     """,
-                    (bucket_id, film_id, bucket_id, film_id),
+                    (bucket_id, film_id, account_id,),
                 )
                 conn.commit()
 
@@ -172,7 +183,7 @@ class BucketsQueries:
                 return new_bucket
 
     def update_bucket_name(
-        self, bucket_id: str, updated_name: str
+        self, bucket_id: str, updated_name: str, account_id: int
     ) -> Optional[BucketOut]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
@@ -180,10 +191,10 @@ class BucketsQueries:
                     """
                     UPDATE buckets
                     SET name = %s
-                    WHERE id = %s
+                    WHERE id = %s AND account_id = %s
                     RETURNING id, name, account_id;
                     """,
-                    (updated_name, bucket_id),
+                    (updated_name, bucket_id, account_id),
                 )
                 result = cursor.fetchone()
                 if result:
@@ -194,27 +205,3 @@ class BucketsQueries:
                     )
                 else:
                     return None
-
-    def delete_film_from_bucket(self, bucket_id: int, film_id: int) -> bool:
-        with pool.connection() as conn:
-            with conn.cursor() as cursor:
-                cursor.execute(
-                    """
-                    DELETE FROM buckets_films
-                    WHERE bucket_id = %s AND film_id = %s
-                    AND EXISTS (
-                        SELECT 1 FROM buckets_films
-                        WHERE bucket_id = %s AND film_id = %s
-                        LIMIT 1
-                    )
-                    RETURNING true;
-                    """,
-                    (bucket_id, film_id, bucket_id, film_id),
-                )
-                conn.commit()
-
-                deleted_row = cursor.fetchone()
-                if deleted_row:
-                    return True
-                else:
-                    return False

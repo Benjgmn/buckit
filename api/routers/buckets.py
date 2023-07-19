@@ -14,17 +14,23 @@ def create_bucket(
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
 ):
-    print(account_data)
-    return queries.create_bucket(bucket=bucket, account_id=account_data["id"])
+    if account_data is None:
+        raise HTTPException(status_code=401, detail="Not logged in")
+    return queries.create_bucket(
+        bucket=bucket, account_id=account_data["id"]
+        )
 
 
-@router.get("/buckets/{account_id}", response_model=List[BucketOut])
+@router.get("/buckets", response_model=List[BucketOut])
 def get_buckets_by_user(
-    account_id: str,
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
 ):
-    return queries.get_buckets_by_user(account_id=account_id)
+    if account_data is None:
+        raise HTTPException(status_code=401, detail="Not logged in")
+    return queries.get_buckets_by_user(
+        account_id=account_data["id"]
+        )
 
 
 @router.post("/buckets/{bucket_id}/films/{film_id}", response_model=FilmData)
@@ -34,7 +40,11 @@ def add_film_to_bucket(
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
 ):
-    return queries.add_film_to_bucket(bucket_id=bucket_id, film_id=film_id)
+    if account_data is None:
+        raise HTTPException(status_code=401, detail="Not logged in")
+    return queries.add_film_to_bucket(
+        bucket_id=bucket_id, film_id=film_id, account_id=account_data["id"]
+        )
 
 
 @router.put("/buckets/{bucket_id}", response_model=BucketOut)
@@ -46,14 +56,10 @@ def update_bucket_name(
 ):
     if account_data is None:
         raise HTTPException(status_code=401, detail="Not logged in")
-    elif not queries.get_buckets_by_user(bucket_id):
-        raise HTTPException(status_code=404, detail="Bucket not found")
-    elif account_data["id"] != queries.get_buckets_by_user(bucket_id).account_id:
-        raise HTTPException(status_code=401, detail="Not authorized to modify this bucket")
-    return queries.update_bucket_name(
-        bucket_id=bucket_id, updated_name=updated_bucket.name
-    )
 
+    return queries.update_bucket_name(
+        bucket_id=bucket_id, updated_name=updated_bucket.name, account_id=account_data["id"]
+    )
 
 @router.delete("/buckets/{bucket_id}/films/{film_id}", response_model=bool)
 def delete_film_from_bucket(
@@ -62,8 +68,10 @@ def delete_film_from_bucket(
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
 ):
+    if account_data is None:
+        raise HTTPException(status_code=401, detail="Not logged in")
     return queries.delete_film_from_bucket(
-        bucket_id=bucket_id, film_id=film_id
+        bucket_id=bucket_id, film_id=film_id, account_id=account_data["id"]
     )
 
 
@@ -75,8 +83,7 @@ def delete_bucket(
 ):
     if account_data is None:
         raise HTTPException(status_code=401, detail="Not logged in")
-    buckets = queries.delete_bucket(id)
-    return buckets
+    return queries.delete_bucket(id)
 
 
 @router.get("/buckets/{bucket_id}/films", response_model=Films)
@@ -85,4 +92,8 @@ def list_films_in_buckets(
     account_data: dict = Depends(authenticator.get_current_account_data),
     queries: BucketsQueries = Depends(),
 ):
-    return queries.list_films_in_buckets(bucket_id=bucket_id)
+    if account_data is None:
+        raise HTTPException(status_code=401, detail="Not logged in")
+    return queries.list_films_in_buckets(
+        bucket_id=bucket_id, account_id=account_data["id"]
+        )
