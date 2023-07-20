@@ -25,7 +25,7 @@ export const movieApi = createApi({
     }),
     deleteBucket: builder.mutation({
       query: (bucket_id) => ({
-        url: `/buckets/${bucket_id}`,
+        url: `/buckets/${bucket_id}/`,
         method: "DELETE",
         credentials: "include",
       }),
@@ -80,7 +80,14 @@ export const movieApi = createApi({
       }),
       invalidatesTags: ["Account"],
     }),
-
+    bucketfilms: builder.query({
+      query: (bucket_id) => ({
+        url: `/buckets/${bucket_id}/films`,
+        credentials: "include",
+      }),
+      transformResponse: (response) => response,
+      providesTags: ["Buckets"],
+    }),
   }),
 });
 
@@ -95,4 +102,5 @@ export const {
     useSearchFilmQuery,
     useGetFilmDetailsQuery,
     useGetAccountQuery,
+    useBucketfilmsQuery,
 } = movieApi;
