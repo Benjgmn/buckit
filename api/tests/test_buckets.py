@@ -30,9 +30,9 @@ class FakeBucketQueries:
                 "title": "test", 
                 "released": "2023-07-23", 
                 "poster": "url",
-                "bucket_id": bucket_id,
-                "account_id": account_id,
+
             } ]
+
         }
 
     def add_film_to_bucket(self, bucket_id: str, film_id: int, account_id: int):
@@ -40,8 +40,6 @@ class FakeBucketQueries:
                 "success": True,
                 "bucket_id": bucket_id,
                 "film_data": {}, 
-                "film_id": film_id,
-                "account_id": account_id,
                 }
 
     def delete_film_from_bucket(self, bucket_id: int, film_id: int):
@@ -111,10 +109,10 @@ def test_list_films_in_buckets():
             "title": "test", 
             "released": "2023-07-23", 
             "poster": "url",
-            "bucket_id": "1",
-            "account_id": 1,
+
         }
         ]
+
     }
 
 
@@ -133,8 +131,6 @@ def test_add_film_to_bucket():
         "success": True,
         "bucket_id": "1",
         "film_data": {},
-        "film_id": 33,
-        "account_id": 1,
     }
 
 
