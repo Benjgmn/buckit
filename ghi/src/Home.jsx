@@ -1,10 +1,12 @@
 import Search from "./Search";
 import FilmList from "./FilmList";
+import SearchFilm from "./SearchFilm";
 
 const Home = () => {
     return (
         <>
-            <Search />
+            <SearchFilm />
+            {/* <Search /> */}
             <FilmList />
         </>
     )

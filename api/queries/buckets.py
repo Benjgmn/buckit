@@ -9,7 +9,7 @@ TMDB_API_KEY = os.environ["TMDB_API_KEY"]
 
 
 class BucketsQueries:
-    def get_buckets_by_user(self, account_id: str) -> List[BucketOut]:
+    def get_buckets_by_user(self, account_id) -> List[BucketOut]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
@@ -18,7 +18,7 @@ class BucketsQueries:
                     FROM buckets
                     WHERE account_id = %s;
                     """,
-                    (account_id,),
+                    [account_id],
                 )
                 rows = cursor.fetchall()
                 buckets = [
@@ -31,7 +31,7 @@ class BucketsQueries:
                 ]
                 return buckets
 
-    def list_films_in_buckets(self, bucket_id: str) -> Optional[List[Films]]:
+    def list_films_in_buckets(self, bucket_id: str, account_id: int) -> Optional[List[Films]]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
@@ -39,9 +39,10 @@ class BucketsQueries:
                     SELECT films.id, films.title, films.released, films.poster
                     FROM buckets_films
                     INNER JOIN films ON films.id = buckets_films.film_id
-                    WHERE bucket_id = %s;
+                    INNER JOIN buckets ON buckets.id = buckets_films.bucket_id
+                    WHERE buckets.id = %s AND buckets.account_id = %s;
                     """,
-                    (bucket_id,),
+                    (bucket_id, account_id,),
                 )
                 rows = cursor.fetchall()
                 films_in_buckets = [
@@ -53,7 +54,7 @@ class BucketsQueries:
                 return Films(films=films_in_buckets)
 
     def add_film_to_bucket(
-        self, bucket_id: str, film_id: int
+        self, bucket_id: str, film_id: int, account_id: int
     ) -> Optional[FilmData]:
         url = f"https://api.themoviedb.org/3/movie/{film_id}?api_key={TMDB_API_KEY}"
         response = requests.get(url)
@@ -102,12 +103,24 @@ class BucketsQueries:
                             """,
                             (bucket_id, film_data["id"]),
                         )
+
+                        cursor.execute(
+                            """
+                            SELECT account_id
+                            FROM buckets
+                            WHERE id = %s;
+                            """,
+                            (bucket_id,),
+                        )
+                        account_id = cursor.fetchone()[0]
+
                         conn.commit()
 
                         film_data = FilmData(
                             bucket_id=bucket_id,
                             film_data=film_data,
                             success=True,
+                            account_id=account_id,
                         )
                         return film_data
 

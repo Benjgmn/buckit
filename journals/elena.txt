@@ -9,3 +9,11 @@ We completed the backend YAY
 07.17.2023
 
 Trying to install react router and redux, as well as get some basic frontned functionality. I ripped off the pokemon app, so i can use it as a scaffold and have an idea of how the frontend would look like. Riley was pissed about it. He said copy paste is not coding. We rammed ahead anyway. It's working now. 
+
+7.18.2023 
+
+We found out we had to rework our bucket routes to include account id so the logged in user would be able to manage only their own buckets. Fun. I worked on that and passed it on to the team for debugging. We made a significant progress on the tests too. I debugged and finished almost all tests for lists. 
+
+7.19. 2023 
+
+Ben made pretty big progress reshaping our search function on the front end. Great job! And Zach pretty much handled front end authentication. We had to rework our buckets queries as well to include the account id for the logged in user. This took a significant amount of time but we did it together! YAY team !
