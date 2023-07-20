@@ -33,6 +33,7 @@ class FakeFilmQueries:
         return {
                 "page": 1,
                 "results": [
+                { "title": title,
                 { "title": title, 
             }]}
 

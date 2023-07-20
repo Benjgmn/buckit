@@ -14,34 +14,44 @@ import { store } from './app/store';
 import reportWebVitals from './reportWebVitals';
 import SignupForm from './signup';
 import BucketList from './Buckets';
+import BucketFilms from "./BucketFilms";
+import CreateBucketPage from './CreateBucket';
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: '/api/films',
+        path: "/api/films",
         element: <Home />,
       },
       {
-        path: '/login',
-        element: <LoginForm />
+        path: "/login",
+        element: <LoginForm />,
       },
       {
-        path: '/signup',
-        element: <SignupForm />
+        path: "/signup",
+        element: <SignupForm />,
       },
       {
-        path: '/buckets',
-        element: <BucketList/>
-      }
-    ]
-  }
-])
+        path: "/buckets",
+        element: <BucketList />,
+      },
+      {
+        path: "/buckets/:bucket_id/films",
+        element: <BucketFilms />,
+      },
+      {
+        path: "/buckets/create",
+        element: <CreateBucketPage />
+      },
+    ],
+  },
+]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
