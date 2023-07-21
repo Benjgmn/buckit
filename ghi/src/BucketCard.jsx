@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
 const BucketCard = ({ buckets }) => {
-  const { id, name,} = buckets;
+  const { bucket_id, name,} = buckets;
 
   return (
     <div className="col-md-4 col-sm-6 mb-4">
       <div className="card">
-        <Link to={`/buckets/${id}`}>
+        <Link to={`/buckets/${bucket_id}`}>
             <div>{name}</div>
         </Link>
         <div className="card-body">

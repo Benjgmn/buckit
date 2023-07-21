@@ -31,7 +31,7 @@ class BucketsQueries:
                 ]
                 return buckets
 
-    def list_films_in_buckets(self, bucket_id: str, account_id: int) -> Optional[List[Films]]:
+    def list_films_in_buckets(self, bucket_id: int, account_id: int) -> Optional[List[Films]]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
@@ -54,7 +54,7 @@ class BucketsQueries:
                 return Films(films=films_in_buckets)
 
     def add_film_to_bucket(
-        self, bucket_id: str, film_id: int, account_id: int
+        self, bucket_id: int, film_id: int, account_id: int
     ) -> Optional[FilmData]:
         url = f"https://api.themoviedb.org/3/movie/{film_id}?api_key={TMDB_API_KEY}"
         response = requests.get(url)
@@ -146,16 +146,29 @@ class BucketsQueries:
                 else:
                     return False
 
-    def delete_bucket(self, bucket_id: int) -> bool:
+    def delete_bucket(self, bucket_id: int, account_id: int) -> bool:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                            DELETE FROM buckets
-                            WHERE id = %s;
-                            """,
-                        [bucket_id],
+                        SELECT COUNT(*)
+                        FROM buckets
+                        WHERE id = %s AND account_id = %s;
+                        """,
+                        [bucket_id, account_id],
+                    )
+                    count = db.fetchone()[0]
+
+                    if count == 0:
+                        return False 
+
+                    db.execute(
+                        """
+                        DELETE FROM buckets
+                        WHERE id = %s AND account_id = %s;
+                        """,
+                        [bucket_id, account_id],
                     )
 
                     return True
@@ -176,14 +189,14 @@ class BucketsQueries:
                 )
                 bucket_id = cursor.fetchone()[0]
                 new_bucket = BucketOut(
-                    id=str(bucket_id),
+                    id=bucket_id,
                     name=bucket.name,
                     account_id=account_id,
                 )
                 return new_bucket
 
     def update_bucket_name(
-        self, bucket_id: str, updated_name: str, account_id: int
+        self, bucket_id: int, updated_name: str, account_id: int
     ) -> Optional[BucketOut]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
@@ -199,7 +212,7 @@ class BucketsQueries:
                 result = cursor.fetchone()
                 if result:
                     return BucketOut(
-                        id=str(result[0]),
+                        id=result[0],
                         name=result[1],
                         account_id=result[2],
                     )
