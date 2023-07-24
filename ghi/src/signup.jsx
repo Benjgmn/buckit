@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSignupMutation } from "./app/apiSlice";
+import { Navigate } from "react-router-dom";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [signup, { isLoading, isError }] = useSignupMutation();
+  const [isSignedUp, setIsSignedUp] = useState(false);
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -18,14 +20,24 @@ const SignupForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (username.trim() === "" || password.trim() === "") {
+
+      return console.log("Invalid Signup form");
+    }
+
     try {
       const { data } = await signup({ username, password });
-      // Dispatch action with signup data
+
       dispatch({ type: "user/signup", payload: data });
+      setIsSignedUp(true);
     } catch (error) {
       console.log("Signup failed:", error);
     }
   };
+
+  if (isSignedUp) {
+    return <Navigate to="/" />
+  }
 
   return (
     <form onSubmit={handleSubmit}>

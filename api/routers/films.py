@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 from queries.films import FilmQueries
+from typing import Optional
 
 router = APIRouter()
 
@@ -12,6 +13,14 @@ async def get_highest_rated_(queries: FilmQueries = Depends()):
 @router.get("/api/films/search/{title}", response_model=dict)
 def search_film(title: str, queries: FilmQueries = Depends()):
     return queries.search_film_by_title(title)
+
+
+@router.get("/api/films/search", response_model=dict)
+def search_film(title: Optional[str] = None, queries: FilmQueries = Depends()):
+    if not title:
+        return {"results": []}
+    else:
+        return queries.search_film_by_title(title)
 
 
 @router.get("/api/films/{id}", response_model=dict)
