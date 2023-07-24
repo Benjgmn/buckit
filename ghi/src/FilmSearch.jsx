@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filter } from "./app/searchSlice";
 import { useSearchFilmQuery } from "./app/apiSlice";
@@ -9,16 +9,14 @@ const FilmSearch = () => {
   const searchCriteria = useSelector((state) => state.search.value);
   const { data } = useSearchFilmQuery(searchCriteria);
 
+  const [errorImages, setErrorImages] = useState([]);
+
   const handleSearch = (e) => {
     e.preventDefault();
-    // No need to dispatch the filter action on each character change
-    // It will be handled automatically by the useSearchFilmQuery hook
   };
 
-  // Function to handle the error if the image fails to load
-  const handleImageError = (e) => {
-    e.target.onerror = null; // Prevent infinite fallback loop
-    e.target.src = "https://www.netlify.com/v3/img/blog/the404.png"; // Replace with the URL of your fallback image
+  const handleImageError = (filmId) => {
+    setErrorImages((prevErrorImages) => [...prevErrorImages, filmId]);
   };
 
   return (
@@ -48,10 +46,14 @@ const FilmSearch = () => {
             <div className="card" key={film.id}>
               <Link to={`/films/${film.id}`}>
                 <img
-                  src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+                  src={
+                    errorImages.includes(film.id)
+                      ? "https://www.netlify.com/v3/img/blog/the404.png"
+                      : `https://image.tmdb.org/t/p/w500/${film.poster_path}`
+                  }
                   alt={film.title}
                   className="card-img-top"
-                  onError={handleImageError} // Handle image loading error
+                  onError={() => handleImageError(film.id)}
                 />
                 <h5 className="card-title">{film.title}</h5>
               </Link>
