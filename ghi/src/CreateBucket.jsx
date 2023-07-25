@@ -10,8 +10,8 @@ const CreateBucketPage = () => {
   const handleCreateBucket = async (e) => {
     e.preventDefault();
 
-    if (bucketName.trim() == "") {
-      return console.log("Empty field invalid")
+    if (bucketName.trim() === "") {
+      return console.log("Empty field invalid");
     }
 
     try {
@@ -25,7 +25,6 @@ const CreateBucketPage = () => {
   };
 
   if (isBucketCreated) {
-
     return <Navigate to="/buckets" />;
   }
 

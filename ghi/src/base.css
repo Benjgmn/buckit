@@ -1,0 +1,130 @@
+/* Set background color to black */
+body {
+  background-color: #1e242b;
+  margin: 0; /* Remove default margin to ensure full-screen layout */
+}
+
+/* Set default text font, color, and font-weight */
+body,
+input,
+button,
+.card-title {
+  font-family: "Open Sans", sans-serif;
+  color: white;
+  font-weight: bold; /* Set font-weight to bold for all elements */
+}
+
+/* Set black text for all input boxes (including the search bar and password inputs) */
+input[type="text"],
+input[type="password"] {
+  color: black;
+}
+
+/* Set highlighted text color */
+.highlighted .card-title {
+  color: #949494;
+}
+
+/* Style buttons */
+button {
+  background-color: #4caf50; /* Set button background color to green */
+  color: white; /* Set button text color to white */
+  border: none; /* Remove button border */
+  padding: 10px 20px; /* Add padding to buttons for a modern look */
+  cursor: pointer; /* Show pointer cursor on hover */
+  margin: 5px; /* Add spacing between buttons */
+  text-decoration: none;
+}
+
+/* Navbar layout styles */
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center items vertically */
+}
+
+.nav-links-container {
+  flex: 1; /* Take the remaining space in the middle */
+  display: flex;
+  justify-content: center; /* Center the nav-links horizontally */
+  align-items: center; /* Center the nav-links vertically */
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-item {
+  margin-right: 20px; /* Add spacing between nav items */
+}
+
+/* Nav-link styles */
+.nav-link {
+  font-size: 40px; /* Set font size to 56 */
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  list-style: none; /* Remove bullet points from each link */
+  margin-right: 10px; /* Add 10px spacing between nav-links */
+}
+
+.nav-link:hover {
+  color: #949494; /* Change color to grey on hover */
+}
+
+.search-icon {
+  cursor: pointer;
+  width: 30px; /* Set the width of the search icon */
+  position: absolute; /* Position the search icon at the top right corner */
+  top: 10px; /* Add spacing from the top */
+  right: 300px; /* Adjust the position to align with the nav elements */
+  z-index: 999; /* Ensure the search icon stays above other elements */
+}
+
+.search-bar {
+  position: absolute;
+  top: 10px;
+  right: 150px; /* Adjust the position to align with the nav elements */
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.search-bar.active {
+  width: 200px; /* Set the width of the expanded search bar */
+}
+
+.search-bar .input {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.search-bar.active .input {
+  width: 150px; /* Set the width of the search bar */
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-bar .button {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.search-bar.active .button {
+  width: auto; /* Allow the button to take up available space */
+  opacity: 1;
+  visibility: visible;
+  margin-left: 5px; /* Add spacing between input box and button */
+}
+
+/* Adjust the search button position */
+.search-bar .button {
+  margin-left: 10px; /* Add spacing between search bar and button */
+}

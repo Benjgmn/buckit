@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filter } from "./app/searchSlice";
 import { useSearchFilmQuery } from "./app/apiSlice";
@@ -21,22 +21,45 @@ const FilmSearch = () => {
     e.target.src = "https://www.netlify.com/v3/img/blog/the404.png"; // Replace with the URL of your fallback image
   };
 
+  // State to handle the visibility of the search icon
+  const [isSearchIconVisible, setSearchIconVisible] = useState(true);
+
+  const toggleSearchBar = () => {
+    setSearchIconVisible(false); // Hide the search icon when it is clicked
+  };
+
   return (
     <div>
       <div>
-        <form onSubmit={handleSearch}>
+        {isSearchIconVisible && ( // Render the search icon only when isSearchIconVisible is true
+          <div className="search-icon" onClick={toggleSearchBar}>
+            <img src="/searchicon.png" alt="Search" />
+          </div>
+        )}
+        <form
+          onSubmit={handleSearch}
+          className={`search-bar ${isSearchIconVisible ? "" : "active"}`}
+        >
           <div className="field has-addons">
-            <div className="control">
+            <div className="control has-icons-left">
               <input
-                className="input"
+                className={`input ${isSearchIconVisible ? "" : "expanded"}`}
                 type="text"
                 placeholder="Search films"
                 value={searchCriteria}
                 onChange={(e) => dispatch(filter(e.target.value))}
               />
+              <span className="icon is-left">
+                <i className="fas fa-search"></i>
+              </span>
             </div>
             <div className="control">
-              <button className="button is-primary" type="submit">
+              <button
+                className={`button is-primary ${
+                  isSearchIconVisible ? "" : "expanded"
+                }`}
+                type="submit"
+              >
                 Search
               </button>
             </div>
