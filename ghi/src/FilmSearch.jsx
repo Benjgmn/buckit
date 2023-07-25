@@ -11,27 +11,23 @@ const FilmSearch = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // No need to dispatch the filter action on each character change
-    // It will be handled automatically by the useSearchFilmQuery hook
   };
 
-  // Function to handle the error if the image fails to load
   const handleImageError = (e) => {
-    e.target.onerror = null; // Prevent infinite fallback loop
-    e.target.src = "https://www.netlify.com/v3/img/blog/the404.png"; // Replace with the URL of your fallback image
+    e.target.onerror = null;
+    e.target.src = "https://www.netlify.com/v3/img/blog/the404.png";
   };
 
-  // State to handle the visibility of the search icon
   const [isSearchIconVisible, setSearchIconVisible] = useState(true);
 
   const toggleSearchBar = () => {
-    setSearchIconVisible(false); // Hide the search icon when it is clicked
+    setSearchIconVisible(false);
   };
 
   return (
     <div>
       <div>
-        {isSearchIconVisible && ( // Render the search icon only when isSearchIconVisible is true
+        {isSearchIconVisible && (
           <div className="search-icon" onClick={toggleSearchBar}>
             <img src="/searchicon.png" alt="Search" />
           </div>
@@ -70,12 +66,15 @@ const FilmSearch = () => {
           {data?.results?.map((film) => (
             <div className="card" key={film.id}>
               <Link to={`/films/${film.id}`}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
-                  alt={film.title}
-                  className="card-img-top"
-                  onError={handleImageError} // Handle image loading error
-                />
+                {film.poster_path ? (
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+                    alt={film.title}
+                    className="card-img-top"
+                  />
+                ) : (
+                  <div className="placeholder-image">Placeholder Image</div>
+                )}
                 <h5 className="card-title">{film.title}</h5>
               </Link>
             </div>
