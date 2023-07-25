@@ -23,33 +23,20 @@ const FilmList = () => {
   }
 
   return (
-    <div className="columns is-centered">
-      <div className="column is-narrow">
-        <h1>Films</h1>
-        <h3>
-          <small className="text-body-secondary">{searchCriteria}</small>
-        </h3>
-        <div className="container">
-          <div className="row mt-3">
-            {filteredFilms().map((film) => (
-              <div className="col-md-4 col-sm-6 mb-4" key={film.id}>
-                <div className="card">
-                  <Link to={`/films/${film.id}`}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
-                      alt={film.title}
-                      className="card-img-top"
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{film.title}</h5>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+    <div className="container">
+      {filteredFilms().map((film) => (
+        <div className="col-md-4 col-sm-6 mb-4" key={film.id}>
+          <Link to={`/films/${film.id}`} className="card">
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+              alt={film.title}
+              className="card-img-top"
+              data-title={`${film.title} (${film.release_date.substr(0, 4)})`}
+            />
+            <div className="card-body"></div>
+          </Link>
         </div>
-      </div>
+      ))}
     </div>
   );
 };

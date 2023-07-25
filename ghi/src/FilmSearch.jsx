@@ -15,7 +15,7 @@ const FilmSearch = () => {
 
   const handleImageError = (e) => {
     e.target.onerror = null;
-    e.target.src = "https://www.netlify.com/v3/img/blog/the404.png";
+    e.target.src = "/placeholder-poster.jpg";
   };
 
   const [isSearchIconVisible, setSearchIconVisible] = useState(true);
@@ -62,23 +62,25 @@ const FilmSearch = () => {
           </div>
         </form>
 
-        <div className="row mt-3">
+        <div className={`container ${isSearchIconVisible ? "hidden" : ""}`}>
           {data?.results?.map((film) => (
-            <div className="card" key={film.id}>
-              <Link to={`/films/${film.id}`}>
-                {film.poster_path ? (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
-                    alt={film.title}
-                    className="card-img-top"
-                  />
-                ) : (
-                  <div className="placeholder-image">
-                    <img src="https://www.netlify.com/v3/img/blog/the404.png" />
-                  </div>
-                )}
-                <h5 className="card-title">{film.title}</h5>
-              </Link>
+            <div className="col-md-4 col-sm-6 mb-4" key={film.id}>
+              <div className="card" data-title={film.title}>
+                <Link to={`/films/${film.id}`}>
+                  {film.poster_path ? (
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+                      alt={film.title}
+                      className="card-img-top"
+                      onError={handleImageError}
+                    />
+                  ) : (
+                    <div className="placeholder-image">
+                      <img src="/placeholder-poster.jpg" />
+                    </div>
+                  )}
+                </Link>
+              </div>
             </div>
           ))}
         </div>

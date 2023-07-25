@@ -128,3 +128,87 @@ button {
 .search-bar .button {
   margin-left: 10px; /* Add spacing between search bar and button */
 }
+
+/* ... (your previous CSS) */
+.placeholder-image img {
+  width: 100%;
+  height: auto;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* Center the movies horizontally with even space between them */
+  margin-top: 100px; /* Adjust the top margin to space the movies away from the navbar */
+}
+
+.col-md-4 {
+  flex: 0 0 16.666667%; /* Adjust the width to fit 6 columns across */
+  max-width: 16.666667%; /* Adjust the width to fit 6 columns across */
+  padding: 10px; /* Add spacing between movie posters */
+}
+
+.card {
+  position: relative;
+  border: none;
+  background: none;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in;
+  width: 100%; /* Ensure the card takes full width of the column */
+}
+
+.card:hover {
+  opacity: 0.9; /* Reduce opacity on hover */
+}
+
+.card:hover::before {
+  content: attr(data-title); /* Display the movie title from data attribute */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Strong black dim overlay color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  opacity: 1; /* Show the overlay on hover */
+  pointer-events: none; /* Ensure the overlay doesn't interfere with hover */
+}
+
+.card-title {
+  display: none; /* Hide movie title by default */
+}
+
+.card:hover .card-title {
+  display: block; /* Show movie title on hover */
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+/* Adjust the search button position */
+.search-bar .button {
+  margin-left: 10px; /* Add spacing between search bar and button */
+}
