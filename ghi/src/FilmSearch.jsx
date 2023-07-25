@@ -73,7 +73,9 @@ const FilmSearch = () => {
                     className="card-img-top"
                   />
                 ) : (
-                  <div className="placeholder-image">Placeholder Image</div>
+                  <div className="placeholder-image">
+                    <img src="https://www.netlify.com/v3/img/blog/the404.png" />
+                  </div>
                 )}
                 <h5 className="card-title">{film.title}</h5>
               </Link>
