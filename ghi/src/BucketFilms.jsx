@@ -12,6 +12,22 @@ const BucketFilms = () => {
   const { data: bucketData } = useGetBucketsQuery();
   const [deleteFilmFromBucket] = useDeleteFilmFromBucketMutation();
 
+  const handleDeleteFilm = async (filmId) => {
+    try {
+      await deleteFilmFromBucket({ bucket_id, film_id: filmId });
+      console.log("Film deleted from bucket successfully!");
+    } catch (error) {
+      console.error(
+        "Error occurred while deleting film from the bucket:",
+        error
+      );
+    }
+  };
+
+  const handleImageError = (e) => {
+    e.target.src = "https://www.netlify.com/v3/img/blog/the404.png";
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -25,18 +41,6 @@ const BucketFilms = () => {
     (bucket) => bucket.id === parseInt(bucket_id)
   )?.name;
 
-  const handleDeleteFilm = async (filmId) => {
-    try {
-      await deleteFilmFromBucket({ bucket_id, film_id: filmId });
-      console.log("Film deleted from bucket successfully!");
-    } catch (error) {
-      console.error(
-        "Error occurred while deleting film from the bucket:",
-        error
-      );
-    }
-  };
-
   return (
     <div>
       <h2>{bucketTitle}</h2>
@@ -47,6 +51,7 @@ const BucketFilms = () => {
               src={`https://image.tmdb.org/t/p/w500/${film.poster}`}
               alt={film.title}
               className="card-img-top"
+              onError={handleImageError} // Handle image loading error
             />
             <h3>{film.title}</h3>
           </Link>

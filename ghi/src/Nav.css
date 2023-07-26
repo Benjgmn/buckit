@@ -1,0 +1,38 @@
+/* Navbar layout styles */
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center items vertically */
+  flex-direction: column;
+}
+
+.nav-links-container {
+  flex: 1; /* Take the remaining space in the middle */
+  display: flex;
+  justify-content: center; /* Center the nav-links horizontally */
+  align-items: center; /* Center the nav-links vertically */
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-item {
+  margin-right: 20px; /* Add spacing between nav items */
+}
+
+/* Nav-link styles */
+.nav-link {
+  font-size: 40px; /* Set font size to 56 */
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  list-style: none; /* Remove bullet points from each link */
+  margin-right: 10px; /* Add 10px spacing between nav-links */
+}
+
+.nav-link:hover {
+  color: #949494; /* Change color to grey on hover */
+}

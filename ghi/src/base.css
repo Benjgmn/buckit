@@ -1,0 +1,233 @@
+/* Set background color to black */
+body {
+  background-color: #1e242b;
+  margin: 0; /* Remove default margin to ensure full-screen layout */
+}
+
+/* Set default text font, color, and font-weight */
+body,
+input,
+button,
+.card-title {
+  font-family: "Open Sans", sans-serif;
+  color: white;
+  font-weight: bold; /* Set font-weight to bold for all elements */
+}
+
+/* Set black text for all input boxes (including the search bar and password inputs) */
+input[type="text"],
+input[type="password"] {
+  color: black;
+}
+
+/* Set highlighted text color */
+.highlighted .card-title {
+  color: #949494;
+}
+
+/* Style buttons */
+button {
+  background-color: #4caf50; /* Set button background color to green */
+  color: white; /* Set button text color to white */
+  border: none; /* Remove button border */
+  padding: 10px 20px; /* Add padding to buttons for a modern look */
+  cursor: pointer; /* Show pointer cursor on hover */
+  margin: 5px; /* Add spacing between buttons */
+  text-decoration: none;
+}
+
+.search-icon {
+  cursor: pointer;
+  width: 30px; /* Set the width of the search icon */
+  position: absolute; /* Position the search icon at the top right corner */
+  top: 10px; /* Add spacing from the top */
+  right: 300px; /* Adjust the position to align with the nav elements */
+  z-index: 999; /* Ensure the search icon stays above other elements */
+}
+
+.search-bar {
+  position: absolute;
+  top: 10px;
+  right: 150px; /* Adjust the position to align with the nav elements */
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.search-bar.active {
+  width: 200px; /* Set the width of the expanded search bar */
+}
+
+.search-bar .input {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.search-bar.active .input {
+  width: 150px; /* Set the width of the search bar */
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-bar .button {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.search-bar.active .button {
+  width: auto; /* Allow the button to take up available space */
+  opacity: 1;
+  visibility: visible;
+  margin-left: 5px; /* Add spacing between input box and button */
+}
+
+/* Adjust the search button position */
+.search-bar .button {
+  margin-left: 10px; /* Add spacing between search bar and button */
+}
+
+/* ... (your previous CSS) */
+.placeholder-image img {
+  width: 100%;
+  height: auto;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly; /* Center the movies horizontally with even space between them */
+  margin-top: 100px; /* Adjust the top margin to space the movies away from the navbar */
+}
+
+.col-md-4 {
+  flex: 0 0 16.666667%; /* Adjust the width to fit 6 columns across */
+  max-width: 16.666667%; /* Adjust the width to fit 6 columns across */
+  padding: 10px; /* Add spacing between movie posters */
+}
+
+.card {
+  position: relative;
+  border: none;
+  background: none;
+  overflow: hidden;
+  transition: opacity 0.3s ease-in;
+  width: 100%; /* Ensure the card takes full width of the column */
+}
+
+.card:hover {
+  opacity: 0.9; /* Reduce opacity on hover */
+}
+
+.card:hover::before {
+  content: attr(data-title); /* Display the movie title from data attribute */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Strong black dim overlay color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  opacity: 1; /* Show the overlay on hover */
+  pointer-events: none; /* Ensure the overlay doesn't interfere with hover */
+}
+
+.card-title {
+  display: none; /* Hide movie title by default */
+}
+
+.card:hover .card-title {
+  display: block; /* Show movie title on hover */
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+}
+
+/* Adjust the search button position */
+.search-bar .button {
+  margin-left: 10px; /* Add spacing between search bar and button */
+}
+
+.film-detail-container {
+  display: grid; /* Change to grid to enable a two-column layout */
+  grid-template-columns: auto 1fr; /* Set the two columns, one for the poster and one for the details */
+  grid-gap: 20px; /* Add spacing between the poster and details */
+  margin-top: 150px; /* Update the margin-top value to create space below the navbar */
+  margin-right: 80px;
+}
+
+.film-poster {
+  max-width: 100%; /* Ensure the poster does not exceed its container */
+}
+
+.film-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.film-details h2 {
+  margin-bottom: 10px;
+}
+
+.film-details h4 {
+  margin-top: 20px;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select-wrapper select {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none; /* Remove default arrow in Firefox */
+}
+
+.select-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevent click on the icon */
+}
+
+.add-to-bucket-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 4px;
+}

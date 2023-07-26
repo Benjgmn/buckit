@@ -89,25 +89,25 @@ export const movieApi = createApi({
       providesTags: ["Buckets"],
     }),
     updateBucket: builder.mutation({
-    query: ({ bucket_id, name }) => ({
-      url: `/buckets/${bucket_id}`,
-      method: "PUT",
-      body: { name },
-      credentials: "include",
-    }),
-    invalidatesTags: ["Buckets"],
+      query: ({ bucket_id, name }) => ({
+        url: `/buckets/${bucket_id}`,
+        method: "PUT",
+        body: { name }, 
+        credentials: "include",
+      }),
+      invalidatesTags: ["Buckets"],
     }),
     addFilmToBucket: builder.mutation({
-    query: ({ bucket_id, film_id }) => {
-      const url = `/buckets/${bucket_id}/films/${film_id}`;
-      return {
-        url,
-        method: "POST",
-        credentials: "include",
-      };
-    },
-    invalidatesTags: ["Buckets"],
-  }),
+      query: ({ bucket_id, film_id }) => {
+        const url = `/buckets/${bucket_id}/films/${film_id}`;
+        return {
+          url,
+          method: "POST",
+          credentials: "include",
+        };
+      },
+      invalidatesTags: ["Buckets"],
+    }),
     deleteFilmFromBucket: builder.mutation({
       query: ({ bucket_id, film_id }) => ({
         url: `/buckets/${bucket_id}/films/${film_id}`,
@@ -135,4 +135,3 @@ export const {
     useAddFilmToBucketMutation,
     useDeleteFilmFromBucketMutation,
 } = movieApi;
-
