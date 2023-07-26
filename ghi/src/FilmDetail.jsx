@@ -36,6 +36,10 @@ const FilmDetail = () => {
     }
   };
 
+  const handleImageError = (e) => {
+    e.target.src = "https://www.netlify.com/v3/img/blog/the404.png";
+  };
+
   if (isFilmLoading || isBucketLoading) return <div>Loading...</div>;
 
   if (filmError) return <div>Error: {filmError.message}</div>;
@@ -57,6 +61,7 @@ const FilmDetail = () => {
             src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
             alt={title}
             className="card-img-top"
+            onError={handleImageError} 
           />
         </div>
         <div className="film-details">

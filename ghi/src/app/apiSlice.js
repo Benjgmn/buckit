@@ -36,7 +36,7 @@ export const movieApi = createApi({
       transformResponse: (response) => response,
     }),
     searchFilm: builder.query({
-      query: (title) => `/api/films/search/${title}`,
+      query: (title) => `/api/films/search?title=${title}`,
     }),
     getFilmDetails: builder.query({
       query: (id) => `/api/films/${id}`,
@@ -89,25 +89,25 @@ export const movieApi = createApi({
       providesTags: ["Buckets"],
     }),
     updateBucket: builder.mutation({
-    query: ({ bucket_id, name }) => ({
-      url: `/buckets/${bucket_id}`,
-      method: "PUT",
-      body: { name }, // Send the updated name in the request body
-      credentials: "include",
-    }),
-    invalidatesTags: ["Buckets"],
+      query: ({ bucket_id, name }) => ({
+        url: `/buckets/${bucket_id}`,
+        method: "PUT",
+        body: { name }, 
+        credentials: "include",
+      }),
+      invalidatesTags: ["Buckets"],
     }),
     addFilmToBucket: builder.mutation({
-    query: ({ bucket_id, film_id }) => {
-      const url = `/buckets/${bucket_id}/films/${film_id}`;
-      return {
-        url,
-        method: "POST",
-        credentials: "include",
-      };
-    },
-    invalidatesTags: ["Buckets"],
-  }),
+      query: ({ bucket_id, film_id }) => {
+        const url = `/buckets/${bucket_id}/films/${film_id}`;
+        return {
+          url,
+          method: "POST",
+          credentials: "include",
+        };
+      },
+      invalidatesTags: ["Buckets"],
+    }),
     deleteFilmFromBucket: builder.mutation({
       query: ({ bucket_id, film_id }) => ({
         url: `/buckets/${bucket_id}/films/${film_id}`,

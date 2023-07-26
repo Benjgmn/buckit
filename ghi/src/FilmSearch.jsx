@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filter } from "./app/searchSlice";
 import { useSearchFilmQuery } from "./app/apiSlice";
@@ -8,6 +9,8 @@ const FilmSearch = () => {
   const dispatch = useDispatch();
   const searchCriteria = useSelector((state) => state.search.value);
   const { data } = useSearchFilmQuery(searchCriteria);
+
+  const [errorImages, setErrorImages] = useState([]);
 
   const handleSearch = (e) => {
     e.preventDefault();
