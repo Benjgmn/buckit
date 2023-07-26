@@ -1,21 +1,32 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { useCreateBucketMutation } from "./app/apiSlice";
 
 const CreateBucketPage = () => {
   const [bucketName, setBucketName] = useState("");
   const [create] = useCreateBucketMutation();
+  const [isBucketCreated, setBucketCreated] = useState(false);
 
   const handleCreateBucket = async (e) => {
     e.preventDefault();
+
+    if (bucketName.trim() === "") { // Change '==' to '==='
+      return console.log("Empty field invalid")
+    }
 
     try {
       await create({ name: bucketName });
 
       console.log("Bucket created successfully!");
+      setBucketCreated(true);
     } catch (error) {
       console.error("Error occurred while creating the bucket:", error);
     }
   };
+
+  if (isBucketCreated) {
+    return <Navigate to="/buckets" />;
+  }
 
   return (
     <div>

@@ -17,3 +17,11 @@ We found out we had to rework our bucket routes to include account id so the log
 7.19. 2023 
 
 Ben made pretty big progress reshaping our search function on the front end. Great job! And Zach pretty much handled front end authentication. We had to rework our buckets queries as well to include the account id for the logged in user. This took a significant amount of time but we did it together! YAY team !
+
+7.20.2023 
+
+We had some troubles with listing films in buckets and deleteing a bucket. After some major headaches during the day, I managed to locate the problem in the backend of our app, and make buckets list the films. The problem with deleteing a bucket was also similar. ( We had a mix of str and int for bucket_id )
+
+7.24.2023 
+
+We made major progress over the weekend and our components are almost done. Search function is pretty much fixed. Zach managed to make all the buttons and everything seems to be working as expected. Some kinks to iron out in the code but otherwise almost done!

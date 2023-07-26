@@ -25,5 +25,5 @@ class Films(BaseModel):
 
 class FilmData(BaseModel):
     success: bool
-    bucket_id: str
+    bucket_id: int
     film_data: dict

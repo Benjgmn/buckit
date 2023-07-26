@@ -16,6 +16,7 @@ import SignupForm from './signup';
 import BucketList from './Buckets';
 import BucketFilms from "./BucketFilms";
 import CreateBucketPage from './CreateBucket';
+import FilmDetail from './FilmDetails';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/buckets/create",
         element: <CreateBucketPage />
+      },
+      {
+        path:"/films/:id",
+        element: <FilmDetail />
       },
     ],
   },
