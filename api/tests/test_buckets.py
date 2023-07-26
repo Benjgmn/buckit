@@ -5,15 +5,15 @@ from models.buckets import BucketIn
 from authenticator import authenticator
 
 
-
 client = TestClient(app)
 
 
 def fake_get_current_account_data():
-    return {'id': 1, 'username': 'fake-user'}
+    return {"id": 1, "username": "fake-user"}
 
 
 class FakeBucketQueries:
+    # Sama
     def get_buckets_by_user(self, account_id: int):
         return [
             {
@@ -24,38 +24,47 @@ class FakeBucketQueries:
         ]
 
     def list_films_in_buckets(self, bucket_id: str, account_id: int):
+        # Elena
         return {
-            "films": [ {
-                "id": 33, 
-                "title": "test", 
-                "released": "2023-07-23", 
-                "poster": "url",
-
-            } ]
-
+            "films": [
+                {
+                    "id": 33,
+                    "title": "test",
+                    "released": "2023-07-23",
+                    "poster": "url",
+                }
+            ]
         }
 
-    def add_film_to_bucket(self, bucket_id: str, film_id: int, account_id: int):
+    def add_film_to_bucket(
+        self, bucket_id: str, film_id: int, account_id: int
+    ):
+        # Ben
         return {
-                "success": True,
-                "bucket_id": bucket_id,
-                "film_data": {}, 
-                }
+            "success": True,
+            "bucket_id": bucket_id,
+            "film_data": {},
+        }
 
     def delete_film_from_bucket(self, bucket_id: int, film_id: int):
+        # Elena
         return True
 
     def delete_bucket(self, bucket_id: int):
+        # Elena
         return True
 
     def create_bucket(self, bucket_in: BucketIn, account_id: int):
+        # Elena
         bucket = bucket_in.dict()
         bucket["id"] = "5"
         bucket["account_id"] = account_id
         return bucket
 
-    def update_bucket_name(self, bucket_id: str, updated_name: str, account_id: int):
-
+    def update_bucket_name(
+        self, bucket_id: str, updated_name: str, account_id: int
+    ):
+        # Zachary
         if not hasattr(self, "buckets"):
             self.buckets = []
 
@@ -73,12 +82,13 @@ class FakeBucketQueries:
 
 
 def test_get_buckets_by_user():
+    # Elena
     app.dependency_overrides[BucketsQueries] = FakeBucketQueries
     app.dependency_overrides[
         authenticator.get_current_account_data
-        ] = fake_get_current_account_data
+    ] = fake_get_current_account_data
 
-    res = client.get('/buckets')
+    res = client.get("/buckets")
     data = res.json()
 
     assert res.status_code == 200
@@ -92,12 +102,13 @@ def test_get_buckets_by_user():
 
 
 def test_list_films_in_buckets():
+    # Zachary
     app.dependency_overrides[BucketsQueries] = FakeBucketQueries
     app.dependency_overrides[
         authenticator.get_current_account_data
-        ] = fake_get_current_account_data
-    
-    res = client.get('/buckets/1/films')
+    ] = fake_get_current_account_data
+
+    res = client.get("/buckets/1/films")
     data = res.json()
     print(data)
 
@@ -105,18 +116,17 @@ def test_list_films_in_buckets():
     assert data == {
         "films": [
             {
-            "id": 33, 
-            "title": "test", 
-            "released": "2023-07-23", 
-            "poster": "url",
-
-        }
+                "id": 33,
+                "title": "test",
+                "released": "2023-07-23",
+                "poster": "url",
+            }
         ]
-
     }
 
 
 def test_add_film_to_bucket():
+    # Elena
     app.dependency_overrides[BucketsQueries] = FakeBucketQueries
     app.dependency_overrides[
         authenticator.get_current_account_data
@@ -134,8 +144,8 @@ def test_add_film_to_bucket():
     }
 
 
-
 def delete_film_from_bucket():
+    # Zachary
     app.dependency_overrides[BucketsQueries] = FakeBucketQueries
     app.dependency_overrides[
         authenticator.get_current_account_data
@@ -149,6 +159,7 @@ def delete_film_from_bucket():
 
 
 def delete_bucket():
+    # Ben
     app.dependency_overrides[BucketsQueries] = FakeBucketQueries
     app.dependency_overrides[
         authenticator.get_current_account_data
@@ -162,6 +173,7 @@ def delete_bucket():
 
 
 def create_bucket():
+    # Elena
     app.dependency_overrides[BucketsQueries] = FakeBucketQueries
     app.dependency_overrides[
         authenticator.get_current_account_data
@@ -180,6 +192,7 @@ def create_bucket():
 
 
 def update_bucket_name():
+    # Elena
     app.dependency_overrides[BucketsQueries] = FakeBucketQueries
     app.dependency_overrides[
         authenticator.get_current_account_data
@@ -196,6 +209,6 @@ def update_bucket_name():
     assert res.status_code == 200
     assert data == {
         "id": "1",
-        "account_id": 1,  
+        "account_id": 1,
         "name": "todd",
     }
