@@ -5,9 +5,10 @@
 - Zachary Loftis
 - SamaDiba Younis
 
-Project Buckeet allows you to make your own bucket list of movies you'd like to watch.
+Project Bucket allows you to make your own bucket list of movies you'd like to watch.
 
 ## Design
+
 - [API Design](docs/api-design.md)
 - [Wireframe](docs/wireframe-design.png)
 
@@ -20,17 +21,17 @@ We are targetting movie watchers and bingers, specifically those wanting a way t
 - User Signup and Authentication:
 
 - Visitors can sign up and create their unique user accounts.
-Users can log in using their credentials.
+  Users can log in using their credentials.
 
 - The website displays a list of movies fetched from a 3rd party API.
-Users can browse through the movie collection.
+  Users can browse through the movie collection.
 
 - Clicking on a movie provides more detailed information about the movie.
-Users can view the title, description, cast, and other relevant details.
+  Users can view the title, description, cast, and other relevant details.
 
 - Logged-in users can create multiple favorites lists, which are called "buckets."
-Each bucket has a unique name assigned to it by the user.
-Adding Movies to Buckets:
+  Each bucket has a unique name assigned to it by the user.
+  Adding Movies to Buckets:
 - Users can add movies to a specific bucket from the movie details page.
 - Users can assign a movie to one or more buckets.
 

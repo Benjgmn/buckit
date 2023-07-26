@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useGetAccountQuery, useLogoutMutation } from "./app/apiSlice";
-// import "./Nav.css"; // Import custom CSS for the navbar
+import "./Nav.css";
 
 const Nav = () => {
   const { data: account } = useGetAccountQuery();

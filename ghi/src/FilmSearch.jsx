@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filter } from "./app/searchSlice";
 import { useSearchFilmQuery } from "./app/apiSlice";
@@ -10,15 +9,8 @@ const FilmSearch = () => {
   const searchCriteria = useSelector((state) => state.search.value);
   const { data } = useSearchFilmQuery(searchCriteria);
 
-  const [errorImages, setErrorImages] = useState([]);
-
   const handleSearch = (e) => {
     e.preventDefault();
-  };
-
-  const handleImageError = (e) => {
-    e.target.onerror = null;
-    e.target.src = "/placeholder-poster.jpg";
   };
 
   const [isSearchIconVisible, setSearchIconVisible] = useState(true);
@@ -75,7 +67,6 @@ const FilmSearch = () => {
                       src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
                       alt={film.title}
                       className="card-img-top"
-                      onError={handleImageError}
                     />
                   ) : (
                     <div className="placeholder-image">

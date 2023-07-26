@@ -1,22 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from './App';
-import Home from './Home';
-import LoginForm from './login';
+import App from "./App";
+import Home from "./Home";
+import LoginForm from "./login";
 
+import { store } from "./app/store";
 
-
-import { store } from './app/store';
-
-import reportWebVitals from './reportWebVitals';
-import SignupForm from './signup';
-import BucketList from './Buckets';
+import reportWebVitals from "./reportWebVitals";
+import SignupForm from "./signup";
+import BucketList from "./Buckets";
 import BucketFilms from "./BucketFilms";
-import CreateBucketPage from './CreateBucket';
-import FilmDetail from './FilmDetail';
+import CreateBucketPage from "./CreateBucket";
+import FilmDetail from "./FilmDetail";
 
 const router = createBrowserRouter([
   {
@@ -24,10 +22,6 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/api/films",
         element: <Home />,
       },
       {
@@ -48,16 +42,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/buckets/create",
-        element: <CreateBucketPage />
+        element: <CreateBucketPage />,
       },
       {
-        path:"/films/:id",
-        element: <FilmDetail />
+        path: "/films/:id",
+        element: <FilmDetail />,
       },
     ],
   },
 ]);
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
