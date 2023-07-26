@@ -41,6 +41,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center; /* Center items vertically */
+  flex-direction: column;
 }
 
 .nav-links-container {
@@ -211,4 +212,61 @@ button {
 /* Adjust the search button position */
 .search-bar .button {
   margin-left: 10px; /* Add spacing between search bar and button */
+}
+
+.film-detail-container {
+  display: grid; /* Change to grid to enable a two-column layout */
+  grid-template-columns: auto 1fr; /* Set the two columns, one for the poster and one for the details */
+  grid-gap: 20px; /* Add spacing between the poster and details */
+  margin-top: 150px; /* Update the margin-top value to create space below the navbar */
+  margin-right: 80px;
+}
+
+.film-poster {
+  max-width: 100%; /* Ensure the poster does not exceed its container */
+}
+
+.film-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.film-details h2 {
+  margin-bottom: 10px;
+}
+
+.film-details h4 {
+  margin-top: 20px;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select-wrapper select {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none; /* Remove default arrow in Firefox */
+}
+
+.select-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevent click on the icon */
+}
+
+.add-to-bucket-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 4px;
 }
