@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useGetAccountQuery, useLogoutMutation } from "./app/apiSlice";
 import "./Nav.css";
@@ -7,6 +7,20 @@ const Nav = () => {
   const { data: account } = useGetAccountQuery();
   const [logout] = useLogoutMutation();
   const location = useLocation();
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const threshold = 20; // Adjust this threshold as needed
+      setIsNavbarVisible(scrollY < threshold);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleHomeLinkClick = (e) => {
     if (location.pathname === "/") {
@@ -24,7 +38,11 @@ const Nav = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div
+      className={`navbar navbar-expand-lg navbar-dark bg-dark ${
+        isNavbarVisible ? "" : "hidden"
+      }`}
+    >
       <div className="container-fluid">
         <div className="navbar-brand-container">
           <NavLink to={"/"} className="navbar-brand">
@@ -66,23 +84,23 @@ const Nav = () => {
               )}
             </ul>
           </div>
-        </div>
-        <div className="buttons-container">
-          <ul className="navbar-nav">
-            {account && (
-              <li className="nav-item">
-                <button
-                  className="btn btn-outline-danger logout-button"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </li>
-            )}
-          </ul>
+          <div className="buttons-container">
+            <ul className="navbar-nav">
+              {account && (
+                <li className="nav-item">
+                  <button
+                    className="btn btn-outline-danger logout-button"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 

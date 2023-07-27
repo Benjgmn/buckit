@@ -74,7 +74,7 @@ def test_get_highest_rated():
     ]
 
 
-# Zachary
+# Sama
 def test_search_film():
 
     app.dependency_overrides[FilmQueries] = FakeFilmQueries

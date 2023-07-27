@@ -1,38 +1,53 @@
 /* Navbar layout styles */
+.navbar {
+  position: fixed; /* Make the Navbar fixed at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: opacity 0.1s; /* Add opacity transition */
+}
+
 .container-fluid {
   display: flex;
-  justify-content: space-between;
-  align-items: center; /* Center items vertically */
-  flex-direction: column;
+  justify-content: center; /* Center the Navbar horizontally */
+  align-items: center; /* Center the Navbar vertically */
+  flex-direction: column; /* Align content in a column */
 }
 
 .nav-links-container {
-  flex: 1; /* Take the remaining space in the middle */
+  margin-top: 20px; /* Add spacing between Navbar and content below */
   display: flex;
-  justify-content: center; /* Center the nav-links horizontally */
-  align-items: center; /* Center the nav-links vertically */
+  flex-wrap: wrap; /* Wrap the nav-links to the next row */
 }
 
 .navbar-nav {
   display: flex;
-  align-items: center;
   list-style: none;
+  margin: 0; /* Remove default margin for the list */
+  padding: 0; /* Remove default padding for the list */
+  justify-content: center; /* Center the nav-links horizontally */
 }
 
 .nav-item {
-  margin-right: 20px; /* Add spacing between nav items */
+  margin: 5px; /* Add spacing between nav items */
 }
 
 /* Nav-link styles */
 .nav-link {
-  font-size: 40px; /* Set font size to 56 */
+  font-size: 40px;
   font-weight: bold;
   color: white;
   text-decoration: none;
-  list-style: none; /* Remove bullet points from each link */
-  margin-right: 10px; /* Add 10px spacing between nav-links */
+  list-style: none;
+  margin-right: 10px;
 }
 
 .nav-link:hover {
-  color: #949494; /* Change color to grey on hover */
+  color: #949494;
+}
+
+/* Add styles for hiding the navbar */
+.navbar.hidden {
+  opacity: 0;
+  pointer-events: none; /* Disable interactions when hidden */
 }
