@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const FilmSearch = () => {
   const dispatch = useDispatch();
   const searchCriteria = useSelector((state) => state.search.value);
+
   const { data } = useSearchFilmQuery(searchCriteria);
 
   const handleSearch = (e) => {
@@ -84,3 +85,5 @@ const FilmSearch = () => {
 };
 
 export default FilmSearch;
+
+
