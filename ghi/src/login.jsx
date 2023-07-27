@@ -32,34 +32,38 @@ const LoginForm = () => {
 
   return (
     <>
-      {isLoggedIn ? (
-        <Navigate to="/" /> 
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </div>
-          {isError && <div>Invalid username or password.</div>}
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Login"}
-          </button>
-        </form>
-      )}
+      <div class="botom">
+        {isLoggedIn ? (
+          <Navigate to="/" />
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={handleUsernameChange}
+                className="another-container"
+              />
+            </div>
+            <div>
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={handlePasswordChange}
+                className="another-container"
+              />
+            </div>
+            {isError && <div>Invalid username or password.</div>}
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
+            </button>
+          </form>
+        )}
+      </div>
     </>
   );
 };

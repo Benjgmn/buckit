@@ -42,22 +42,25 @@ const BucketFilms = () => {
   )?.name;
 
   return (
-    <div>
+    <div class="centered-container">
       <h2>{bucketTitle}</h2>
-      {films.map((film) => (
-        <div key={film.id}>
-          <Link to={`/films/${film.id}`}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${film.poster}`}
-              alt={film.title}
-              className="card-img-top"
-              onError={handleImageError} // Handle image loading error
-            />
-            <h3>{film.title}</h3>
-          </Link>
-          <button onClick={() => handleDeleteFilm(film.id)}>Delete</button>
-        </div>
-      ))}
+      <div className={`container`}>
+        {films.map((film) => (
+          <div className="col-md-4 col-sm-6 mb-4" key={film.id}>
+            <div className="card" data-title={film.title}>
+              <Link to={`/films/${film.id}`}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${film.poster}`}
+                  alt={film.title}
+                  className="card-img-top"
+                  onError={handleImageError}
+                />
+              </Link>
+            </div>
+            <button onClick={() => handleDeleteFilm(film.id)}>Delete</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -231,3 +231,23 @@ button {
   margin-top: 10px;
   border-radius: 4px;
 }
+
+/* Zach Created these 3 css pieces, feel free to place them somewhere else for coding purposes */
+.centered-container {
+  text-align: center;
+}
+
+.another-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.botom {
+  position: fixed;
+  bottom: 50%;
+  left: 37%;
+  transform: translate(-50%, 50%);
+
+  padding: 20px;
+}
