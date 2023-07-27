@@ -3,8 +3,8 @@
     align-items: center;
     flex-direction: column;
     position: fixed;
-    bottom: 28%;
-    left: 38.5%;
+    bottom: 50;
+    left: 50%;
     transform: translate(-50%, 50%);
 
     padding: 20px;
@@ -13,4 +13,8 @@
 
 .Bucket_item {
     color: white;
+}
+
+.bucket-title{
+    margin-top: 150px;
 }

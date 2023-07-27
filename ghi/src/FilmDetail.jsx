@@ -19,11 +19,9 @@ const FilmDetail = () => {
     isLoading: isBucketLoading,
   } = useGetBucketsQuery();
   const [selectedBucketId, setSelectedBucketId] = useState("");
-
-  const [addFilmToBucket, { isLoading: isAddingFilm }] =
-    useAddFilmToBucketMutation();
-
-  const handleAddToBucket = async () => {
+  const [buttonText, setButtonText] = useState("Add Film to Bucket");
+  const handleClick = async () => {
+    setButtonText("Film Added to bucket!!");
     try {
       await addFilmToBucket({
         bucket_id: selectedBucketId,
@@ -36,8 +34,11 @@ const FilmDetail = () => {
     }
   };
 
+  const [addFilmToBucket, { isLoading: isAddingFilm }] =
+    useAddFilmToBucketMutation();
+
   const handleImageError = (e) => {
-    e.target.src = "https://www.netlify.com/v3/img/blog/the404.png";
+    e.target.src = "/placeholder-poster.jpg";
   };
 
   if (isFilmLoading || isBucketLoading) return <div>Loading...</div>;
@@ -50,7 +51,6 @@ const FilmDetail = () => {
   const { title, runtime, release_date, overview, genres, poster_path } =
     filmData;
 
-  // Extract the year from the release_date
   const releaseYear = new Date(release_date).getFullYear();
 
   return (
@@ -61,7 +61,7 @@ const FilmDetail = () => {
             src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
             alt={title}
             className="card-img-top"
-            onError={handleImageError} 
+            onError={handleImageError}
           />
         </div>
         <div className="film-details">
@@ -100,11 +100,11 @@ const FilmDetail = () => {
               </div>
             </div>
             <button
-              onClick={handleAddToBucket}
+              onClick={handleClick}
               disabled={!selectedBucketId || isAddingFilm}
               className="add-to-bucket-button"
             >
-              {isAddingFilm ? "Adding..." : "Add to Bucket"}
+              {buttonText}
             </button>
             <div className="row mt-3">
               <div className="col-md-4">

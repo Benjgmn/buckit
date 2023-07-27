@@ -39,12 +39,12 @@ const BucketList = () => {
   }
 
   if (isError) {
-    return <p>Error occurred while fetching buckets.</p>;
+    return <p>You Are not logged in. Please Log in to view your buckets</p>;
   }
 
   if (!buckets || buckets.length === 0) {
     return (
-      <div>
+      <div className="bucket-title">
         <Link to="/buckets/create">
           <button>Let's make some buckets!</button>
         </Link>
@@ -68,14 +68,25 @@ const BucketList = () => {
                   value={newBucketName}
                   onChange={(e) => setNewBucketName(e.target.value)}
                 />
-                <button onClick={() => handleUpdateBucketName(bucket.id)} className="bucket_save_button">
+                <button
+                  onClick={() => handleUpdateBucketName(bucket.id)}
+                  className="bucket_save_button"
+                >
                   Save
                 </button>
               </div>
             ) : (
               <div>
-                <Link to={`/buckets/${bucket.id}/films`} className="Bucket_item">{bucket.name}</Link>
-                <button onClick={() => handleDeleteBucket(bucket.id)} className="buckets_delete_button">
+                <Link
+                  to={`/buckets/${bucket.id}/films`}
+                  className="Bucket_item"
+                >
+                  {bucket.name}
+                </Link>
+                <button
+                  onClick={() => handleDeleteBucket(bucket.id)}
+                  className="buckets_delete_button"
+                >
                   Delete
                 </button>
                 <button

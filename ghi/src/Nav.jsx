@@ -12,7 +12,7 @@ const Nav = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const threshold = 20; // Adjust this threshold as needed
+      const threshold = 20;
       setIsNavbarVisible(scrollY < threshold);
     };
 

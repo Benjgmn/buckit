@@ -37,7 +37,7 @@ class FakeBucketQueries:
         }
 
     def add_film_to_bucket(
-        self, bucket_id: str, film_id: int, account_id: int
+        self, bucket_id: int, film_id: int, account_id: int
     ):
         # Ben
         return {
@@ -139,7 +139,7 @@ def test_add_film_to_bucket():
     data = res.json()
     assert data == {
         "success": True,
-        "bucket_id": "1",
+        "bucket_id": 1,
         "film_data": {},
     }
 

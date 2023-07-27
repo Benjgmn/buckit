@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div class="botom">
+      <div className="botom">
         {isLoggedIn ? (
           <Navigate to="/" />
         ) : (

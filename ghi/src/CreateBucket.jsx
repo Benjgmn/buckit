@@ -29,7 +29,7 @@ const CreateBucketPage = () => {
   }
 
   return (
-    <div>
+    <div className="buckets_1">
       <h2>Create Bucket</h2>
       <form onSubmit={handleCreateBucket}>
         <label>

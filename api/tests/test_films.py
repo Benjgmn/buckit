@@ -30,12 +30,7 @@ class FakeFilmQueries:
     # Ben
     def search_film_by_title(self, title: str):
         return {
-            "page": 1,
-            "results": [
-                {
-                    "title": title,
-                }
-            ],
+            "results": [],
         }
 
     # Zachary
@@ -74,22 +69,17 @@ def test_get_highest_rated():
     ]
 
 
-# Sama
+# Zachary
 def test_search_film():
 
     app.dependency_overrides[FilmQueries] = FakeFilmQueries
 
-    res = client.get("/api/films/search/test-title")
+    res = client.get("/api/films/search")
     data = res.json()
 
     assert res.status_code == 200
     assert data == {
-        "page": 1,
-        "results": [
-            {
-                "title": "test-title",
-            }
-        ],
+        "results": [],
     }
 
 

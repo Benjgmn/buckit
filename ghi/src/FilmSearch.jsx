@@ -85,5 +85,3 @@ const FilmSearch = () => {
 };
 
 export default FilmSearch;
-
-

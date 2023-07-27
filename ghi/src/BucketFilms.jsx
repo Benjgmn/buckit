@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import {
   useBucketfilmsQuery,
   useDeleteFilmFromBucketMutation,
@@ -25,7 +25,7 @@ const BucketFilms = () => {
   };
 
   const handleImageError = (e) => {
-    e.target.src = "https://www.netlify.com/v3/img/blog/the404.png";
+    e.target.src = "/placeholder-poster.jpg";
   };
 
   if (isLoading) {
@@ -41,9 +41,22 @@ const BucketFilms = () => {
     (bucket) => bucket.id === parseInt(bucket_id)
   )?.name;
 
+  if (films.length === 0) {
+    return (
+      <div className="bucket-title">
+        <h2 className="bucket-title">{bucketTitle}</h2>
+        <div>
+          <Link to="/">
+            <button>You have no films in this bucket</button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div class="centered-container">
-      <h2>{bucketTitle}</h2>
+    <div className="centered-container">
+      <h2 className="bucket-title">{bucketTitle}</h2>
       <div className={`container`}>
         {films.map((film) => (
           <div className="col-md-4 col-sm-6 mb-4" key={film.id}>

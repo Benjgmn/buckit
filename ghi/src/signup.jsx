@@ -21,7 +21,6 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (username.trim() === "" || password.trim() === "") {
-
       return console.log("Invalid Signup form");
     }
 
@@ -36,11 +35,11 @@ const SignupForm = () => {
   };
 
   if (isSignedUp) {
-    return <Navigate to="/" />
+    return <Navigate to="/" />;
   }
 
   return (
-    <div class="botom">
+    <div className="botom">
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
