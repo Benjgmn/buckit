@@ -5,6 +5,7 @@ import {
   useUpdateBucketMutation,
 } from "./app/apiSlice";
 import { Link } from "react-router-dom";
+import "./Buckets.css";
 
 const BucketList = () => {
   const { data: buckets, isLoading, isError } = useGetBucketsQuery();
@@ -52,11 +53,11 @@ const BucketList = () => {
   }
 
   return (
-    <div>
+    <div className="buckets_1">
       <Link to="/buckets/create">
-        <button>Create a Bucket!</button>
+        <button className="buckets_button">Create a Bucket!</button>
       </Link>
-      <h2>Bucket List</h2>
+      <h2 className="buckets_list_h">Bucket List</h2>
       <ul>
         {buckets.map((bucket) => (
           <li key={bucket.id}>
@@ -67,14 +68,14 @@ const BucketList = () => {
                   value={newBucketName}
                   onChange={(e) => setNewBucketName(e.target.value)}
                 />
-                <button onClick={() => handleUpdateBucketName(bucket.id)}>
+                <button onClick={() => handleUpdateBucketName(bucket.id)} className="bucket_save_button">
                   Save
                 </button>
               </div>
             ) : (
               <div>
-                <Link to={`/buckets/${bucket.id}/films`}>{bucket.name}</Link>
-                <button onClick={() => handleDeleteBucket(bucket.id)}>
+                <Link to={`/buckets/${bucket.id}/films`} className="Bucket_item">{bucket.name}</Link>
+                <button onClick={() => handleDeleteBucket(bucket.id)} className="buckets_delete_button">
                   Delete
                 </button>
                 <button
@@ -83,6 +84,7 @@ const BucketList = () => {
                     setSelectedBucket(bucket.id);
                     setNewBucketName(bucket.name);
                   }}
+                  className="buckets_edit_button"
                 >
                   Edit
                 </button>
