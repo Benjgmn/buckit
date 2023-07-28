@@ -1,27 +1,75 @@
+6.26.2023
+
+We were allowed to fork our project finally. Ben did it and we all cloned it.
+
+6.27.2023
+
+We started looking at the project and trying to implement some backend functionality and plan around the wireframe.
+
+6.28.2023
+
+We started off with some models, authentication and routes on the backend. Trying to make them work on swagger. Trying to intergate 3rd party API
+
+6.29.2023
+
+We are making progress with our list films and 3rd party API. Now we have some functionality + authentication working.
+
+6.30.2023
+
+We had to consult Riley how to go about integrating our films and buckets into postgres. It turned out a lot more complicated than we thought, as its a many to many relationship. We'll work on it together after summer break.
+
+7.10.2023
+
+First day back after summer break. We started tackling the buckets problems on backend.
+
+7.11.2023
+
+Our greatest problems are adding films to the buckets and listing them. We are working on a solution of how to add a film to bucket just once if that film already exists in the bucket.
+
+7.12.2023
+
+We've made a lot of progress but still having some issues. We are mostly working on fixing the bugs.
+
 07.13.2023
 
 We made a significant progress on listing films in the buckets.
 
 07.14.2023
 
-We completed the backend YAY
+We completed the backend YAY!
 
 07.17.2023
 
-Trying to install react router and redux, as well as get some basic frontned functionality. I ripped off the pokemon app, so i can use it as a scaffold and have an idea of how the frontend would look like. Riley was pissed about it. He said copy paste is not coding. We rammed ahead anyway. It's working now. 
+Trying to install react router and redux, as well as get some basic frontned functionality. I ripped off the pokemon app, so i can use it as a scaffold and have an idea of how the frontend would look like. Riley was pissed about it. He said copy paste is not coding. We rammed ahead anyway. It's working now.
 
-7.18.2023 
+7.18.2023
 
-We found out we had to rework our bucket routes to include account id so the logged in user would be able to manage only their own buckets. Fun. I worked on that and passed it on to the team for debugging. We made a significant progress on the tests too. I debugged and finished almost all tests for lists. 
+We found out we had to rework our bucket routes to include account id so the logged in user would be able to manage only their own buckets. Fun. I worked on that and passed it on to the team for debugging. We made a significant progress on the tests too. I debugged and finished almost all tests for lists.
 
-7.19. 2023 
+7.19. 2023
 
 Ben made pretty big progress reshaping our search function on the front end. Great job! And Zach pretty much handled front end authentication. We had to rework our buckets queries as well to include the account id for the logged in user. This took a significant amount of time but we did it together! YAY team !
 
-7.20.2023 
+7.20.2023
 
 We had some troubles with listing films in buckets and deleteing a bucket. After some major headaches during the day, I managed to locate the problem in the backend of our app, and make buckets list the films. The problem with deleteing a bucket was also similar. ( We had a mix of str and int for bucket_id )
 
-7.24.2023 
+7.24.2023
 
 We made major progress over the weekend and our components are almost done. Search function is pretty much fixed. Zach managed to make all the buttons and everything seems to be working as expected. Some kinks to iron out in the code but otherwise almost done!
+
+7.25. 2023
+
+Ben created our app logo and did A TON of work on styling. The frontend now looks great, still a few things to fix tho.
+
+7.26.2023
+
+We finished up styling the frontend (mostly Zack and Ben), I try but I'm not very good at it. We agreed that Ben will fix our wireframe and Zack the required README.
+
+7.27.2023
+
+Michael had a look at our project and gave us tips. We fixed some tests and made sure everything else is in order. We're pretty much done!
+
+7.28.2023
+
+Today is the deadline. We'll have one last push with the journals complete.

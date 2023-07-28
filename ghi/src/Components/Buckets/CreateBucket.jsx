@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { useCreateBucketMutation } from "./app/apiSlice";
+import { useCreateBucketMutation } from "../../app/apiSlice";
 
 const CreateBucketPage = () => {
   const [bucketName, setBucketName] = useState("");

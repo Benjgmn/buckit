@@ -1,4 +1,4 @@
-import { useGetHighestRatedFilmsQuery } from "./app/apiSlice";
+import { useGetHighestRatedFilmsQuery } from "../../app/apiSlice";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./FilmList.css";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filter } from "./app/searchSlice";
-import { useSearchFilmQuery } from "./app/apiSlice";
+import { filter } from "../../app/searchSlice";
+import { useSearchFilmQuery } from "../../app/apiSlice";
 import { Link } from "react-router-dom";
 
 const FilmSearch = () => {

@@ -4,7 +4,7 @@ import {
   useBucketfilmsQuery,
   useDeleteFilmFromBucketMutation,
   useGetBucketsQuery,
-} from "./app/apiSlice";
+} from "../../app/apiSlice";
 
 const BucketFilms = () => {
   const { bucket_id } = useParams();

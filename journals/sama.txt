@@ -1,0 +1,31 @@
+Journal Entry - Project Development Summary
+
+STARTED 06.26.23
+We kicked off the project by wireframing and setting up the database during the past week. Recently, we focused on backend authentication, making good progress together.
+06.28.23
+Continuing from the last entry, we spent the past couple of days diving into backend authentication.
+06.29.23
+Another productive day! We integrated a third-party API, updated the .env sample to .env, and started working on our films and bucket files as a team.
+06.30.23
+High-fives all around! We successfully completed the api/model/films functionality.
+SUMMER BREAK
+07.10.23
+After the summer break, we regrouped and began working on backend buckets. We tackled update_bucket_name and ensured that the bucket routes worked smoothly with authentication.
+07.13.23
+We've been making steady progress on the functionality of the buckets. Recently, we added delete_bucket, and Ben did a fantastic job on delete_films_from_bucket on the backend.
+07.14.23
+Great news! Our backend functionality is now complete, and Zach made a head start on writing unit tests.
+07.18.23
+As we shifted to the front end, we took some time to review auth and redux lectures. Elena started with front-end authentication, and we all chipped in to get it done.
+07.19.23
+Front-end authentication is fully functional, including sign-up and login. Today, we also dived into Redux and React components, ironing out any issues that popped up.
+07.20.23
+We returned to the backend for a while to work on unit tests, fix bugs, and ensure everything was in good shape.
+07.24.23
+Our frontend functionality really started coming together. Zach and Elena teamed up to resolve a 422 error that was bugging us. I also managed to sort out my bug that had been lingering.
+07.25.23
+Ben took the lead on adding some Bootstrap styling to our frontend, giving it a polished look. We all contributed to the CSS, making the project visually appealing.
+07.26.23
+We conducted a thorough code cleanup, removing unnecessary print statements, console.logs, and pseudocode. Michael's suggestion to organize our frontend files was helpful, and Elena promptly handled the unit test issues.
+07.27.23
+We've made it! Backend finished, frontend finished, README finished, and wireframing updated and finalized. It's been a fantastic journey of collaboration and teamwork!

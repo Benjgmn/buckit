@@ -14,7 +14,7 @@ Project Bucket allows you to make your own bucket list of movies you'd like to w
 
 ## Intended Market
 
-We are targetting movie watchers and bingers, specifically those wanting a way to keep track of the movies they enjoy. Movies being able to provide vital information such as an overview, runtime as well as the genres they fall under, offer the user an informed look at the film they would potentially enjoy.
+We are targeting movie watchers and binge-watchers who want a convenient way to keep track of the movies they enjoy. Our platform will provide vital information such as an overview, runtime, and genres, offering users an informed look at the films they may potentially enjoy.
 
 ## Functionality
 

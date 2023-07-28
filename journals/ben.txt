@@ -1,0 +1,89 @@
+06.26.2023
+
+Began work on the project, a film list app called "Buckit". The name came from an idea that Elena had to have a horse mascot for the site. I look forward to seeing if we do that, and I'm eager to get into the midst of group programming.
+
+06.27.23
+
+Began the process of getting our accounts service setup with our postgresql database. I feel like I'm starting to get the handle on how to make queries with FastAPI. I currently prefer the process using Django, but I don't mind that much because Swagger is much nicer than having to use Insomnia. Happy with today's progress
+
+
+06.28.23
+
+A slower day than yesterday. We mainly spent today refining our database and getting everybody on the same page. Made our first commit today, I wonder how many more will come by the end of the project?
+
+
+06.29.23
+
+Today started with a bang, as Elena got our first working account queries to appear in Swagger. After some minor database changes they worked! We then worked on the film queries and integrating our 3rd party api. We got the key in the .env successfully, but sadly we've had no luck getting the queries to work.
+
+
+06.30.23
+
+We Got the 3rd party api working today! We can now get the highest rated and most popular films straight from TMDB. We also solved an issue with our signing key not being in the docker-compose file. We did our first merge to main as well today, luckily didn't have many conflicts Looking forward to refining and adding more film queries after the break!
+
+
+07.10.23
+
+It definitely felt like the first day back after a long break logging in today. Fortunately we shook the tired feeling off pretty quickly and got lots done. I spent most of my day working on the queries for buckets, and I got the ones for getting, creating, renaming a bucket all finished. An overall awesome day, I hope we can keep up this pace!
+
+07.11.23
+
+Continued working on the bucket queries. We worked independantly on our own branches and reviewed the fastapi lectures for today.
+
+07.12.23
+
+More of the same from yesterday, we spent today going through the Curtis videos and continuing to work on BucketQueries. Been banging my head against the query that adds films to a bucket for a while, I hope I can get it finished tomorrow
+
+
+07.13.23
+
+Lots happened today so I'll keep it to only the important stuff. We started by implementing the join table that Riley showed us yesterday. After getting it setup we finally got our first bucket queries that involve films working. We spent the rest of our time working away at those; by the end of the day we got all the core queries we wanted working. We just have to finalize the files and fix some minor errors with our query that deletes films from a bucket. Hoping we get it figured out tomorrow.
+
+
+07.14.23
+
+Finished our functional backend today (still have to write the unit tests). I managed to figure out the problem we were having with the delete response for duplicate buckets. I wasn't returning a valid response in my if check for if a bucket already existed. We spent the rest of our time reviewing frontend stuff this weeks content on Learn. I was super happy to hear from Riley today that we are on schedule :).
+
+07.17.23
+
+
+That quote more or less sums up our work on FrontEnd today. After deciding to go with redux, we began coding our Home page which displays the highest rated films as well as the search component. We've got the structure there, but we haven't figured out how to make our queries hit the api yet. We also began planning for unit tests, I know Zach's going to do some in advance studying for them tomorrow.
+
+
+07.18.23
+
+Got the film posters to show up on the Home page! We spent the day working on fixing oversights and working on the unit tests. I feel silly that our commit says "finalized backend" when we still have errors like logged in users being able to mess with other accounts buckets. Unfortunately my classtime was cut short, as I lost power at my house from 3:30 to 5:45 today. After coming back I helped out with the unit tests until 7.
+
+
+07.19.23
+
+Awesome day today. I started the day off by getting our search component working, there was an issue with our apiSlice in which the search were trying to access a property of the api response that didn't exist. We rolled through frontend auth, Zach took the lead and got it finished. We also fixed a big issue with our bucket queries. We added the account_id field to all of them to finally make it to where logged in users can only manage their own account bound buckets. Ended the day with the components for login, sign up, and the list of buckets in full working order.
+
+
+07.20.23
+
+Moral of the day: if you make something one data type somewhere, you should keep it that data type across all files. We learned this lesson the hard way when working on the last of our frontend queries. Both our "delete bucket" and "list films in a specfic bucket" queries were causing errors for type mismatches.
+
+
+
+07.24.23
+
+Styling day! I'm a CSS nerd so I've been looking forward to this for a while. I went about basing the design of the site off the wireframe, and I got the FilmList component working how I wanted it to with the exception of the grid that the posters will inhabit.
+
+
+07.25.23
+
+Fixed the 404s in FilmSearch by adding a placeholder image to inhabit the posters of films that don't have any poster_path on the api. I even ended up making a custom 404 poster that includes the horse mascot we've wanted to add since the beginning of the project. Also got the grid working today for both FilmSearch and FilmList, though I'm having an issue where the overlay that displays a fims title on the poster isn't working on the FilmList films.
+
+07.26.23
+
+We all collectively worked on styling today. I managed to get the FilmDetail view done today and it's for sure my favorite looking component. We all encountered spacing oddities because of the navbar, so I'm thinking I propose we lock it to a static position and re-do some styling to make it work tomorrow.
+
+
+07.27.23
+
+Fixed the Navbar to be in a fixed positions and sure enough the site looks a lot better now. We ran through the code with Michael today and it went really well.  I'm thrilled to hear that the project meets the requirements to get an A! We spent the rest of the day implementing feedback that Michael suggested and finalizing our components.
+
+7.28.23
+
+We finished up yesterday, so all I did as far as project work today is update todays journal and sharing this file with the rest of the team. Super happy and accomplished

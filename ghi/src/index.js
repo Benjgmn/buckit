@@ -4,17 +4,17 @@ import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
-import Home from "./Home";
-import LoginForm from "./login";
+import Home from "./Components/Accounts/Home";
+import LoginForm from "./Components/Accounts/login";
 
 import { store } from "./app/store";
 
 import reportWebVitals from "./reportWebVitals";
-import SignupForm from "./signup";
-import BucketList from "./Buckets";
-import BucketFilms from "./BucketFilms";
-import CreateBucketPage from "./CreateBucket";
-import FilmDetail from "./FilmDetail";
+import SignupForm from "./Components/Accounts/signup";
+import BucketList from "./Components/Buckets/Buckets";
+import BucketFilms from "./Components/Buckets/BucketFilms";
+import CreateBucketPage from "./Components/Buckets/CreateBucket";
+import FilmDetail from "./Components/Films/FilmDetail";
 
 const router = createBrowserRouter([
   {

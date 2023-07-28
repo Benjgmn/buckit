@@ -1,5 +1,5 @@
-import FilmList from "./FilmList";
-import FilmSearch from "./FilmSearch";
+import FilmList from "../Films/FilmList";
+import FilmSearch from "../Films/FilmSearch";
 
 const Home = () => {
   return (

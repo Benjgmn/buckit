@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useGetAccountQuery, useLogoutMutation } from "./app/apiSlice";
+import { useGetAccountQuery, useLogoutMutation } from "../../app/apiSlice";
 import "./Nav.css";
 
 const Nav = () => {

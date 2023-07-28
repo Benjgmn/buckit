@@ -4,7 +4,7 @@ import {
   useGetFilmDetailsQuery,
   useGetBucketsQuery,
   useAddFilmToBucketMutation,
-} from "./app/apiSlice";
+} from "../../app/apiSlice";
 
 const FilmDetail = () => {
   const { id } = useParams();

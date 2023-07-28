@@ -3,7 +3,7 @@ import {
   useGetBucketsQuery,
   useDeleteBucketMutation,
   useUpdateBucketMutation,
-} from "./app/apiSlice";
+} from "../../app/apiSlice";
 import { Link } from "react-router-dom";
 import "./Buckets.css";
 

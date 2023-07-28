@@ -1,0 +1,35 @@
+7-13-2023
+
+Overall today was very productive, we were able to have some work done on our get requests for films.
+
+7-14-2023
+
+Backend for the most part seems done, or at least until we find out that we might need something else done.
+
+7-18-2023
+
+Well today we tried diving into some react stuff and overall I am not sure if much progress was made, but that's okay we're going to have stumbles and we still managed to come ahead.
+
+7-19-2023
+
+Our routes for buckets had to be redone to a degree, turns out anyone could access anyone's account just as long as they were logged in.
+
+7-20-2023
+
+We figured out that for deleting our buckets we were trying top pass a string where its an integer field, so it seems we needed to do some more backend work today.
+
+7-24-2023
+
+Me and Elena had a chance to speak over the weekend and Frontend work just seemed to clcik, i got most of the major functionality parts of our front end completed and working for the most part, I'm feeling really good after having gotten through the weekend.
+
+7-25-2023
+
+Ben seeems to be really good at styling with CSS, I'm definitely going to try and see if i can learn a thing or two to make websites look pretty.
+
+7-26-2023
+
+Elena was able to figure a way out to deal with the 404 error in our console, I know the instructor said he wouldn't deduct points since I am handling it but I am still extremely glad that its fixed for code cleanlyness.
+
+7-27-2023
+
+Today we were able to get Micheal to review our code and he called it defintiely worth an A, my moral is definitely much better.
