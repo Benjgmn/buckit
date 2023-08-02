@@ -16,9 +16,7 @@ def create_bucket(
 ):
     if account_data is None:
         raise HTTPException(status_code=401, detail="Not logged in")
-    return queries.create_bucket(
-        bucket=bucket, account_id=account_data["id"]
-        )
+    return queries.create_bucket(bucket=bucket, account_id=account_data["id"])
 
 
 @router.get("/buckets", response_model=List[BucketOut])
@@ -28,9 +26,7 @@ def get_buckets_by_user(
 ):
     if account_data is None:
         raise HTTPException(status_code=401, detail="Not logged in")
-    return queries.get_buckets_by_user(
-        account_id=account_data["id"]
-        )
+    return queries.get_buckets_by_user(account_id=account_data["id"])
 
 
 @router.post("/buckets/{bucket_id}/films/{film_id}", response_model=FilmData)
@@ -44,7 +40,7 @@ def add_film_to_bucket(
         raise HTTPException(status_code=401, detail="Not logged in")
     return queries.add_film_to_bucket(
         bucket_id=bucket_id, film_id=film_id, account_id=account_data["id"]
-        )
+    )
 
 
 @router.put("/buckets/{bucket_id}", response_model=BucketOut)
@@ -58,8 +54,11 @@ def update_bucket_name(
         raise HTTPException(status_code=401, detail="Not logged in")
 
     return queries.update_bucket_name(
-        bucket_id=bucket_id, updated_name=updated_bucket.name, account_id=account_data["id"]
+        bucket_id=bucket_id,
+        updated_name=updated_bucket.name,
+        account_id=account_data["id"],
     )
+
 
 @router.delete("/buckets/{bucket_id}/films/{film_id}", response_model=bool)
 def delete_film_from_bucket(
@@ -85,7 +84,7 @@ def delete_bucket(
         raise HTTPException(status_code=401, detail="Not logged in")
     return queries.delete_bucket(
         bucket_id=bucket_id, account_id=account_data["id"]
-        )
+    )
 
 
 @router.get("/buckets/{bucket_id}/films", response_model=Films)
@@ -98,4 +97,4 @@ def list_films_in_buckets(
         raise HTTPException(status_code=401, detail="Not logged in")
     return queries.list_films_in_buckets(
         bucket_id=bucket_id, account_id=account_data["id"]
-        )
+    )

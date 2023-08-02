@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
 import App from "./App";
 import Home from "./Components/Accounts/Home";
@@ -15,6 +19,9 @@ import BucketList from "./Components/Buckets/Buckets";
 import BucketFilms from "./Components/Buckets/BucketFilms";
 import CreateBucketPage from "./Components/Buckets/CreateBucket";
 import FilmDetail from "./Components/Films/FilmDetail";
+
+const domain = /https:\/\/[^/]+/;
+const basename = process.env.PUBLIC_URL.replace(domain, "");
 
 const router = createBrowserRouter([
   {
@@ -53,11 +60,13 @@ const router = createBrowserRouter([
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>
+  <BrowserRouter basename={basename}>
+    <React.StrictMode>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </React.StrictMode>
+  </BrowserRouter>
 );
 
 reportWebVitals();
