@@ -14,6 +14,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.get("/")
+def home():
+    return True
+
+
 app.include_router(accounts.router, tags=["Accounts"])
 app.include_router(authenticator.router, tags=["Accounts"])
 app.include_router(films.router, tags=["Films"])
