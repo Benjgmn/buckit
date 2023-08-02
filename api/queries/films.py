@@ -21,7 +21,7 @@ class FilmQueries:
 
     def search_film_by_title(self, title: str):
         results = requests.get(
-           "https://api.themoviedb.org/3/search/movie?"
+            "https://api.themoviedb.org/3/search/movie?"
             + f"api_key={TMDB_API_KEY}&query={title}"
         )
         data = results.json()

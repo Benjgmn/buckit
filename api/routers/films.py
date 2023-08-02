@@ -6,7 +6,7 @@ router = APIRouter()
 
 
 @router.get("/api/films/rank")
-async def get_highest_rated_(queries: FilmQueries = Depends()):
+async def get_highest_rated_films(queries: FilmQueries = Depends()):
     return queries.get_highest_rated_films()
 
 

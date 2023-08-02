@@ -9,7 +9,7 @@ TMDB_API_KEY = os.environ["TMDB_API_KEY"]
 
 
 class BucketsQueries:
-    def get_buckets_by_user(self, account_id) -> List[BucketOut]:
+    def get_buckets_by_user(self, account_id: int) -> List[BucketOut]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
@@ -31,7 +31,9 @@ class BucketsQueries:
                 ]
                 return buckets
 
-    def list_films_in_buckets(self, bucket_id: int, account_id: int) -> Optional[List[Films]]:
+    def list_films_in_buckets(
+        self, bucket_id: int, account_id: int
+    ) -> Optional[List[Films]]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
@@ -42,7 +44,10 @@ class BucketsQueries:
                     INNER JOIN buckets ON buckets.id = buckets_films.bucket_id
                     WHERE buckets.id = %s AND buckets.account_id = %s;
                     """,
-                    (bucket_id, account_id,),
+                    (
+                        bucket_id,
+                        account_id,
+                    ),
                 )
                 rows = cursor.fetchall()
                 films_in_buckets = [
@@ -124,7 +129,9 @@ class BucketsQueries:
                         )
                         return film_data
 
-    def delete_film_from_bucket(self, bucket_id: int, film_id: int, account_id: int) -> bool:
+    def delete_film_from_bucket(
+        self, bucket_id: int, film_id: int, account_id: int
+    ) -> bool:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
@@ -136,7 +143,11 @@ class BucketsQueries:
                     )
                     RETURNING true;
                     """,
-                    (bucket_id, film_id, account_id,),
+                    (
+                        bucket_id,
+                        film_id,
+                        account_id,
+                    ),
                 )
                 conn.commit()
 
@@ -161,7 +172,7 @@ class BucketsQueries:
                     count = db.fetchone()[0]
 
                     if count == 0:
-                        return False 
+                        return False
 
                     db.execute(
                         """
@@ -176,7 +187,9 @@ class BucketsQueries:
             print(e)
             return False
 
-    def create_bucket(self, bucket: BucketIn, account_id) -> Optional[BucketOut]:
+    def create_bucket(
+        self, bucket: BucketIn, account_id: int
+    ) -> Optional[BucketOut]:
         with pool.connection() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(

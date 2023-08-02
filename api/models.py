@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 from jwtdown_fastapi.authentication import Token
+from datetime import date
+from typing import List
 
 
 class HttpError(BaseModel):

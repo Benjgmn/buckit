@@ -1,94 +1,38 @@
-from fastapi.testclient import TestClient
-from main import app
-from queries.films import FilmQueries
-
-client = TestClient(app)
-
-
-class FakeFilmQueries:
-    # Zachary
-    def get_highest_rated_films(self):
-        return [
-            {
-                "adult": False,
-                "backdrop_path": "/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
-                "genre_ids": [18, 80],
-                "id": 238,
-                "original_language": "en",
-                "original_title": "The Godfather",
-                "overview": "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.",
-                "popularity": 128.804,
-                "poster_path": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
-                "release_date": "1972-03-14",
-                "title": "The Godfather",
-                "video": False,
-                "vote_average": 8.7,
-                "vote_count": 18241,
-            },
-        ]
-
-    # Ben
-    def search_film_by_title(self, title: str):
-        return {
-            "results": [],
-        }
-
-    # Zachary
-    def get_film_details(self, id: int):
-        return {
-            "id": id,
-        }
+import os
+from fastapi import Depends
+from jwtdown_fastapi.authentication import Authenticator
+from queries.accounts import AccountQueries
+from models.accounts import AccountOutWithHashedPassword, AccountOut
 
 
-# Zachary
-def test_get_highest_rated():
-    app.dependency_overrides[FilmQueries] = FakeFilmQueries
+class FilmAuthenticator(Authenticator):
+    async def get_account_data(
+        self,
+        username: str,
+        accounts: AccountQueries,
+    ):
+        # Use your repo to get the account based on the
+        # username (which could be an email)
+        return accounts.get(username)
 
-    res = client.get("/api/films/rank")
-    data = res.json()
-    print(res, res.status_code, data)
+    def get_account_getter(
+        self,
+        accounts: AccountQueries = Depends(),
+    ):
+        # Return the accounts. That's it.
+        return accounts
 
-    assert res.status_code == 200
-    assert data == [
-        {
-            "adult": False,
-            "backdrop_path": "/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
-            "genre_ids": [18, 80],
-            "id": 238,
-            "original_language": "en",
-            "original_title": "The Godfather",
-            "overview": "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.",
-            "popularity": 128.804,
-            "poster_path": "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
-            "release_date": "1972-03-14",
-            "title": "The Godfather",
-            "video": False,
-            "vote_average": 8.7,
-            "vote_count": 18241,
-        }
-    ]
+    def get_hashed_password(self, account: AccountOutWithHashedPassword):
+        # Return the encrypted password value from your
+        # account object
+        return account.hashed_password
 
-
-# Zachary
-def test_search_film():
-
-    app.dependency_overrides[FilmQueries] = FakeFilmQueries
-
-    res = client.get("/api/films/search")
-    data = res.json()
-
-    assert res.status_code == 200
-    assert data == {
-        "results": [],
-    }
+    def get_account_data_for_cookie(
+        self, account: AccountOutWithHashedPassword
+    ):
+        # Return the username and the data for the cookie.
+        # You must return TWO values from this method.
+        return account.username, AccountOut(**account.dict())
 
 
-# Ben
-def test_get_film_details():
-    app.dependency_overrides[FilmQueries] = FakeFilmQueries
-
-    res = client.get("/api/films/1")
-
-    assert res.status_code == 200
-    assert str(res.json()["id"]) == "1"
-    app.dependency_overrides = {}
+authenticator = FilmAuthenticator(os.environ["SIGNING_KEY"])
