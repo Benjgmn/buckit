@@ -61,7 +61,10 @@ class BucketsQueries:
     def add_film_to_bucket(
         self, bucket_id: int, film_id: int, account_id: int
     ) -> Optional[FilmData]:
-        url = f"https://api.themoviedb.org/3/movie/{film_id}?api_key={TMDB_API_KEY}"
+        url = (
+            f"https://api.themoviedb.org/3/movie/{film_id}"
+            f"?api_key={TMDB_API_KEY}"
+        )
         response = requests.get(url)
 
         if response.status_code == 200:
@@ -91,7 +94,8 @@ class BucketsQueries:
                             """
                             INSERT INTO films (id, title, released, poster)
                             VALUES (%s, %s, %s, %s)
-                            ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title;
+                            ON CONFLICT (id) DO UPDATE
+                            SET title = EXCLUDED.title;
                             """,
                             (
                                 film_data["id"],
