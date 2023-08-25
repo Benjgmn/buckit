@@ -18,7 +18,8 @@ Output:
     ]
 }
 ```
-Getting all of the buckets that are associated with a specific user, giving the chance to have personalized lists that only the owner of that account can see.
+
+Getting all of the buckets that are associated with a specific user allows the user to view personalized lists that only the owner of that account can see.
 
 - **Method**: `PUT`, `DELETE`
 - **Path**: `/api/buckets/<bucket:id>`
@@ -31,6 +32,7 @@ Output for DELETE:
 }
 
 ```
+
 Output for PUT:
 
 ```json
@@ -41,7 +43,7 @@ Output for PUT:
 }
 ```
 
-Having the ability to delete and or change the name of a bucket allows for for customization for the user with their lists of movies, being able to add and create as needed
+Having the ability to delete and or change the name of a bucket allows for customization for the user with their lists of movies, being able to add and create as needed
 
 - **Method**: `POST`, `DELETE`
 - **Path**: `api/buckets/<bucket:id>/films/<film:id>`
@@ -64,7 +66,7 @@ Output for DELETE:
 }
 ```
 
-Adding and deleteing films from specific bucket is the key to this entire application, giving users the freedom to define list of movies they would want to watch.
+Adding and deleting films from a specific bucket is the key to this entire application, giving users the freedom to define lists of movies they would want to watch.
 
 - **Method**: `GET`
 - **Path**: `api/buckets/<bucket:id>/films`
@@ -117,7 +119,7 @@ Output:
 }
 ```
 
-On our home page we have access to our films that are shown on the opening page, 20 of the highest ranked films in totallity to give aqn idea of what films might be good to add to their list.
+The home page displays 20 of the highest-ranked films by default as suggestions for what films might be good to add to a list.
 
 - **Method**: `GET`
 - **Path**: `api/films/search`
@@ -159,12 +161,14 @@ Output:
   ]
 }
 ```
-This brings us to our more specified function which helps our user search for films by title. EBing able to do this allows them to directly find films they want to add.
+
+This brings us to our more specified function which helps the user search for films by title. Being able to do this allows them to directly find films they want to add.
 
 - **Method**: `GET`
 - **Path**: `api/films/int:id`
 
 Input:
+
 ```json
 {
     id: int
@@ -256,4 +260,4 @@ Output:
 }
 ```
 
-This fucntiuonality allows our user to see the specific details of a film, from here they can make the decision if they feel that the particular film will be a fine addition to their bucket
+This functionality allows the user to see the specific details of a film. From here, they can decide if they feel that the particular film will be a fine addition to their bucket

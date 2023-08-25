@@ -9,8 +9,8 @@ Project Bucket allows you to make your own bucket list of movies you'd like to w
 
 ## Design
 
-- [API Design](docs/api-design.md)
-- [Wireframe](docs/wireframe-design.png)
+- [API Design](api-design.md)
+- [Wireframe](wireframe-design.png)
 
 ## Intended Market
 
